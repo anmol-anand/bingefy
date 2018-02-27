@@ -4,25 +4,32 @@
 
 <head>
 
-	<style>
+	<!-- <style>
 	div#frame{ width:550px; background:#000; margin:0px auto;}
-	div#controlBar{ background: #333; padding:10px;}
-	</style>
+	div#controlBar{ background:#333; padding:10px;}
+	div#mainVideo{ }
+	</style> -->
 
-	<script src = "./player.js" type="text/javascript"></script>
+	<script src = "./player.js" type = 'text/javascript'></script>
 	<script src = "/socket.io/socket.io.js"></script>
 
 </head>
 
 <body>
 
-	<div id="frame">
-	  <video id="mainVideo" width="550" height="300" autoplay>
-	  	<source src="../trailers/falconHeavy.mp4">
-	  </video>
-	  <div id="controlBar">
-	    <button id="playPauseBtn" onclick="trigger()">Pause</button>
-	  </div>
+	<div id='frame'>
+
+	 	<video id = 'mainVideo' autoplay>
+	  		<source src = "../trailers/falconHeavy.mp4">
+		</video>
+	  
+	  	<div id = 'controlBar'>
+
+	    	<button id = 'playPauseBtn'>Pause</button>
+	    	<input id = 'seekSlider' type = 'range' min = '0' max = '1000' value = '0' step = '1'>
+	  
+		</div>
+	
 	</div>
 
 </body>

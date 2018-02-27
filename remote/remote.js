@@ -1,21 +1,39 @@
 window.onload = function() {
-	window.playPauseBtn = document.getElementById("playPauseBtn");
+	window.playPauseBtn = document.getElementById('playPauseBtn');
+	window.seekSlider = document.getElementById('seekSlider');
+
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
-		// var control = document.getElementById(data.Control);
-		toggle();
+		toggle(data);
 	});
+	
+	playPauseBtn.addEventListener('click', function(){ 
+		trigger( {Control: "playPauseBtn"});
+	}, false);
+	seekSlider.addEventListener('change', function(){ 
+		trigger( {Control: "seekSlider", seekSliderValue: seekSlider.value});
+	}, false);
+	
+};
+
+function trigger(data){
+	socket.emit('trigger', data);
 }
 
-function trigger(){
-	socket.emit('trigger', {Control: "playPauseBtn"});
-}
-
-function toggle(){
-	if(playPauseBtn.innerHTML=="Pause"){
-		playPauseBtn.innerHTML = "Play";
-	}
-	else{
-		playPauseBtn.innerHTML = "Pause";	
+function toggle(data){
+	switch (data.Control){
+		case "playPauseBtn" :
+			if(playPauseBtn.innerHTML=="Pause"){
+				playPauseBtn.innerHTML = "Play";
+			}
+			else{
+				playPauseBtn.innerHTML = "Pause";	
+			}
+			break;
+		case "seekSlider" : 
+			seekSlider.value = data.seekSliderValue;
+			break;
+		case "updateSlider" :
+			seekSlider.value = data.seekSliderValue;
 	}
 }
