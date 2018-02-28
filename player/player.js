@@ -19,6 +19,9 @@ window.onload = function(){
 	mainVideo.addEventListener('timeupdate', function(){
 		trigger( {Control: "updateSlider", curT: mainVideo.currentTime, durT: mainVideo.duration});
 	}, false);
+	mainVideo.addEventListener('ended', function(){
+		trigger( {Control: "stop"});
+	}, false);
 };
 
 function trigger(data){
@@ -44,6 +47,8 @@ function toggle(data){
 		case "updateSlider" :
 			seekUpdate(data.curT, data.durT);
 			break;
+		case "stop":
+			playPauseBtn.innerHTML = "Replay";
 	}
 }
 
