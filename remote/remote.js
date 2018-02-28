@@ -3,6 +3,8 @@ window.onload = function() {
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
 	window.durationTime = document.getElementById('durationTime');
+	window.muteBtn = document.getElementById('muteBtn');
+
 
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
@@ -15,7 +17,9 @@ window.onload = function() {
 	seekSlider.addEventListener('change', function(){ 
 		trigger( {Control: "seekSlider", seekSliderValue: seekSlider.value});
 	}, false);
-
+	muteBtn.addEventListener('click', function(){
+		trigger( {Control: "muteBtn"});
+	}, false);
 };
 
 function trigger(data){
@@ -38,8 +42,12 @@ function toggle(data){
 		case "updateSlider" :
 			seekUpdate(data.curT, data.durT);
 			break;
-		case "stop":
-			playPauseBtn.innerHTML = "Replay";
+		case "videoEnded":
+			playPauseBtn.innerHTML = "Play";
+			break;
+		case "muteBtn":
+			muteClicked();
+			break;
 	}
 }
 
@@ -68,4 +76,13 @@ function seekUpdate(curT, durT){
 	}
 	currentTime.innerHTML = ((curhrs > 0)?(curhrs + ":" + extcurmins):curmins) + ":" + cursecs;
 	durationTime.innerHTML = ((durhrs > 0)?(durhrs + ":" + extdurmins):durmins) + ":" + dursecs;
+}
+
+function muteClicked(){
+	if(muteBtn.innerHTML=="Unmute"){
+		muteBtn.innerHTML = "Mute";
+	}
+	else{
+		muteBtn.innerHTML = "Unmute";
+	}
 }
