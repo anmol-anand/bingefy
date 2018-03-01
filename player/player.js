@@ -1,10 +1,14 @@
 window.onload = function(){
+
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.mainVideo = document.getElementById('mainVideo');
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
 	window.durationTime = document.getElementById('durationTime');
 	window.muteBtn = document.getElementById('muteBtn');
+	window.volumeSlider = document.getElementById('volumeSlider');
+	window.preVol = volumeSlider.value;
+	window.smallVol = 0.20*volumeSlider.max;
 
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
@@ -24,15 +28,20 @@ window.onload = function(){
 		trigger( {Control: "videoEnded"});
 	}, false);
 	muteBtn.addEventListener('click', function(){
-		trigger( {Control: "muteBtn"});
+		trigger( {Control: "muteBtn", volumeSliderValue: volumeSlider.value});
+	}, false);
+	volumeSlider.addEventListener('change', function(){
+		trigger( {Control: "volumeSlider", volumeSliderValue: volumeSlider.value});
 	}, false);
 };
 
 function trigger(data){
+
 	socket.emit('trigger', data);
 }
 
 function toggle(data){
+
 	switch (data.Control){
 		case "playPauseBtn" :
 			if(mainVideo.paused){
@@ -49,18 +58,22 @@ function toggle(data){
 			seekSlider.value = data.seekSliderValue;
 			break;
 		case "updateSlider" :
-			seekUpdate(data.curT, data.durT);
+			autoSeekUpdate(data.curT, data.durT);
 			break;
 		case "videoEnded":
 			playPauseBtn.innerHTML = "Play";
 			break;
 		case "muteBtn":
-			muteClicked();
+			toggleVolume(data);
+			break;
+		case "volumeSlider":
+			toggleVolume(data);
 			break;
 	}
 }
 
-function seekUpdate(curT, durT){
+function autoSeekUpdate(curT, durT){
+
 	seekSlider.value = seekSlider.max*curT/durT;
 	var curhrs = Math.floor(curT/3600);
 	var curmins = Math.floor((curT%3600)/60);
@@ -87,13 +100,28 @@ function seekUpdate(curT, durT){
 	durationTime.innerHTML = ((durhrs > 0)?(durhrs + ":" + extdurmins):durmins) + ":" + dursecs;
 }
 
-function muteClicked(){
-	if(mainVideo.muted){
-		mainVideo.muted = false;
-		muteBtn.innerHTML = "Mute";
+function toggleVolume(data){
+
+	volumeSlider.value = data.volumeSliderValue;
+	if(data.Control=="volumeSlider"){
+		preVol = smallVol;
 	}
 	else{
-		mainVideo.muted = true;
+		if(volumeSlider.value==0){
+			volumeSlider.value = preVol;
+		}
+		else{
+			preVol = volumeSlider.value;
+			volumeSlider.value = 0;
+		}
+	}
+	
+	if(volumeSlider.value==0){
 		muteBtn.innerHTML = "Unmute";
 	}
+	else{
+		muteBtn.innerHTML = "Mute";
+	}
+
+	mainVideo.volume = volumeSlider.value/volumeSlider.max;
 }
