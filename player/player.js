@@ -9,6 +9,7 @@ window.onload = function(){
 	window.volumeSlider = document.getElementById('volumeSlider');
 	window.preVol = volumeSlider.value;
 	window.smallVol = 0.20*volumeSlider.max;
+	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
@@ -32,6 +33,9 @@ window.onload = function(){
 	}, false);
 	volumeSlider.addEventListener('change', function(){
 		trigger( {Control: "volumeSlider", volumeSliderValue: volumeSlider.value});
+	}, false);
+	fullScreenBtn.addEventListener('click', function(){ 
+		trigger( {Control: "fullScreenBtn"});
 	}, false);
 };
 
@@ -68,6 +72,15 @@ function toggle(data){
 			break;
 		case "volumeSlider":
 			toggleVolume(data);
+			break;
+		case "fullScreenBtn":
+			toggleVideoFullScreen();
+			if(fullScreenBtn.innerHTML=="Full Screen"){
+				fullScreenBtn.innerHTML = "Exit Full Screen";
+			}
+			else{
+				fullScreenBtn.innerHTML = "Full Screen";
+			}
 			break;
 	}
 }
@@ -124,4 +137,8 @@ function toggleVolume(data){
 	}
 
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;
+}
+
+function toggleVideoFullScreen(){
+
 }
