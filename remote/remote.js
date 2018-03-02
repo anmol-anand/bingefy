@@ -16,7 +16,17 @@ window.onload = function() {
 
 		toggle(data);
 	});
-	
+	socket.on('current controls', function(data){
+		
+		playPauseBtn.innerHTML = data.playPauseBtn;
+		seekSlider.value = data.seekSlider;
+		currentTime.innerHTML = data.currentTime;
+		durationTime.innerHTML = data.durationTime;
+		muteBtn.innerHTML = data.muteBtn;
+		volumeSlider.value = data.volumeSlider;
+		fullScreenBtn.innerHTML = data.fullScreenBtn;
+	});
+
 	playPauseBtn.addEventListener('click', function(){ 
 		trigger( {Control: "playPauseBtn"});
 	}, false);
@@ -32,6 +42,8 @@ window.onload = function() {
 	fullScreenBtn.addEventListener('click', function(){ 
 		trigger( {Control: "fullScreenBtn"});
 	}, false);
+	
+	socket.emit('get controls', {});
 };
 
 function trigger(data){

@@ -26,6 +26,12 @@ io.sockets.on('connection', function(socket){
 	});
 
 	socket.on('trigger', function(data){
-		io.sockets.emit("toggle", data);
+		io.sockets.emit('toggle', data);
+	});
+	socket.on('get controls', function(data){
+		io.sockets.emit('get controls', data);
+	});
+	socket.on('current controls', function(data){
+		io.sockets.emit('current controls', data);
 	});
 });

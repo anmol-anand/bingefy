@@ -17,7 +17,11 @@ window.onload = function(){
 
 		toggle(data);
 	});
-	
+	socket.on('get controls', function(data){
+
+		sendControls();
+	});
+
 	playPauseBtn.addEventListener('click', function(){ 
 		trigger( {Control: "playPauseBtn"});
 	}, false);
@@ -39,7 +43,22 @@ window.onload = function(){
 	fullScreenBtn.addEventListener('click', function(){ 
 		trigger( {Control: "fullScreenBtn"});
 	}, false);
+	
+	sendControls();
 };
+
+function sendControls(){
+
+	socket.emit('current controls', { 
+		playPauseBtn: playPauseBtn.innerHTML, 
+		seekSlider: seekSlider.value, 
+		currentTime: currentTime.innerHTML, 
+		durationTime: durationTime.innerHTML,
+		muteBtn: muteBtn.innerHTML,
+		volumeSlider: volumeSlider.value,
+		fullScreenBtn: fullScreenBtn.innerHTML,
+	});
+}
 
 function trigger(data){
 
