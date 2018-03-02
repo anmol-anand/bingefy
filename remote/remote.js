@@ -9,9 +9,11 @@ window.onload = function() {
 	window.preVol = volumeSlider.value;
 	window.smallVol = 0.20*volumeSlider.max;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
+	window.selfTriggerFullScreen = true;
 
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
+
 		toggle(data);
 	});
 	
@@ -64,12 +66,7 @@ function toggle(data){
 			toggleVolume(data);
 			break;
 		case "fullScreenBtn":
-			if(fullScreenBtn.innerHTML=="Full Screen"){
-				fullScreenBtn.innerHTML = "Exit Full Screen";
-			}
-			else{
-				fullScreenBtn.innerHTML = "Full Screen";
-			}
+			toggleFullScreen();
 			break;
 	}
 }
@@ -123,5 +120,15 @@ function toggleVolume(data){
 	}
 	else{
 		muteBtn.innerHTML = "Mute";
+	}
+}
+
+function toggleFullScreen(){
+	
+	if(fullScreenBtn.innerHTML=="Full Screen"){
+		fullScreenBtn.innerHTML = "Exit Full Screen";
+	}
+	else{
+		fullScreenBtn.innerHTML = "Full Screen";
 	}
 }
