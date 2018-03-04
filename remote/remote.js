@@ -1,6 +1,5 @@
 window.onload = function() {
 
-	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
 	window.durationTime = document.getElementById('durationTime');
@@ -11,6 +10,11 @@ window.onload = function() {
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.selfTriggerFullScreen = true;
 
+	window.playPauseBtn = document.getElementById('playPauseBtn');
+	window.lhalf = document.getElementById('lhalf');
+	window.rhalf = document.getElementById('rhalf');
+	initPlayPause();
+
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
 
@@ -18,7 +22,12 @@ window.onload = function() {
 	});
 	socket.on('current controls', function(data){
 		
-		playPauseBtn.innerHTML = data.playPauseBtn;
+		if(data.playPauseBtn=='showPlay'){
+			showPlay();
+		}
+		else{
+			showPause();
+		}
 		seekSlider.value = data.seekSlider;
 		currentTime.innerHTML = data.currentTime;
 		durationTime.innerHTML = data.durationTime;
@@ -55,11 +64,11 @@ function toggle(data){
 	
 	switch (data.Control){
 		case "playPauseBtn" :
-			if(playPauseBtn.innerHTML=="Pause"){
-				playPauseBtn.innerHTML = "Play";
+			if(rhalf.style.height == '0px'){//currnetly showing Play, show Pause
+				showPause();
 			}
 			else{
-				playPauseBtn.innerHTML = "Pause";	
+				showPlay();
 			}
 			break;
 		case "seekSlider" : 
@@ -69,7 +78,7 @@ function toggle(data){
 			autoSeekUpdate(data.curT, data.durT);
 			break;
 		case "videoEnded":
-			playPauseBtn.innerHTML = "Play";
+			showPlay();
 			break;
 		case "muteBtn":
 			toggleVolume(data);

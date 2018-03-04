@@ -15,7 +15,7 @@ function showPause(){
 	lhalf.style.position = 'relative';
 	lhalf.style.left = '0px';
 	lhalf.style.top = '0px';
-	w = widthPPB*heightPPB;
+	w = (widthPPB)*heightPPB;
 	lhalf.style.borderLeft = w.toString() + 'px solid ' + colorPPB;
 	lhalf.style.borderTop = '0px solid transparent';
 	lhalf.style.borderBottom = '0px solid transparent';

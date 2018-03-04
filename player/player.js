@@ -57,7 +57,7 @@ window.onload = function(){
 function sendControls(){
 
 	socket.emit('current controls', { 
-		playPauseBtn: rhalf.style.height, 
+		playPauseBtn: (rhalf.style.height=='0px'?'showPlay':'showPause'), 
 		seekSlider: seekSlider.value, 
 		currentTime: currentTime.innerHTML, 
 		durationTime: durationTime.innerHTML,
@@ -78,13 +78,11 @@ function toggle(data){
 		case "playPauseBtn" :
 			if(mainVideo.paused){
 				mainVideo.play();
-				toPlay();
-				// playPauseBtn.innerHTML = "Pause";
+				showPause();
 			}
 			else{
 				mainVideo.pause();
-				toPause();
-				// playPauseBtn.innerHTML = "Play";
+				showPlay();
 			}
 			break;
 		case "seekSlider" :
@@ -95,8 +93,7 @@ function toggle(data){
 			autoSeekUpdate(data.curT, data.durT);
 			break;
 		case "videoEnded":
-			toPause();
-			// playPauseBtn.innerHTML = "Play";
+			showPlay();
 			break;
 		case "muteBtn":
 			toggleVolume(data);
