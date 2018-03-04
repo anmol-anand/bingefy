@@ -4,7 +4,12 @@
 
 <head>
 
+	<meta charset="UTF-8">
+	
+	<title>Bingefy</title>
+
 	<script src = "./player.js" type = 'text/javascript'></script>
+	<script src = "./transitions.js" type = 'text/javascript'></script>
 	<script src = "/socket.io/socket.io.js"></script>
 
 </head>
@@ -19,7 +24,10 @@
 	  
 	  	<div id = 'controlBar'>
 
-	    	<button id = 'playPauseBtn'>Pause</button>
+			<div id = 'playPauseBtn'>
+				<div id = 'lhalf'></div>
+				<div id = 'rhalf'></div>
+			</div>
 	    	<input id = 'seekSlider' type = 'range' min = '0' max = '1000' value = '0' step = '1'>
 			<span id = 'currentTime'></span> / 
 			<span id = 'durationTime'></span>

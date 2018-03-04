@@ -1,6 +1,5 @@
 window.onload = function(){
 
-	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.mainVideo = document.getElementById('mainVideo');
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
@@ -11,6 +10,11 @@ window.onload = function(){
 	window.smallVol = 0.20*volumeSlider.max;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.selfTriggerFullScreen = true;
+
+	window.playPauseBtn = document.getElementById('playPauseBtn');
+	window.lhalf = document.getElementById('lhalf');
+	window.rhalf = document.getElementById('rhalf');
+	initPlayPause();
 
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
@@ -44,13 +48,16 @@ window.onload = function(){
 		trigger( {Control: "fullScreenBtn"});
 	}, false);
 	
+	//sliders are not reinitialized on onload, so sync the video ac to them
+	mainVideo.volume = volumeSlider.value/volumeSlider.max;
+	
 	sendControls();
 };
 
 function sendControls(){
 
 	socket.emit('current controls', { 
-		playPauseBtn: playPauseBtn.innerHTML, 
+		playPauseBtn: rhalf.style.height, 
 		seekSlider: seekSlider.value, 
 		currentTime: currentTime.innerHTML, 
 		durationTime: durationTime.innerHTML,
@@ -71,11 +78,13 @@ function toggle(data){
 		case "playPauseBtn" :
 			if(mainVideo.paused){
 				mainVideo.play();
-				playPauseBtn.innerHTML = "Pause";
+				toPlay();
+				// playPauseBtn.innerHTML = "Pause";
 			}
 			else{
 				mainVideo.pause();
-				playPauseBtn.innerHTML = "Play";
+				toPause();
+				// playPauseBtn.innerHTML = "Play";
 			}
 			break;
 		case "seekSlider" :
@@ -86,7 +95,8 @@ function toggle(data){
 			autoSeekUpdate(data.curT, data.durT);
 			break;
 		case "videoEnded":
-			playPauseBtn.innerHTML = "Play";
+			toPause();
+			// playPauseBtn.innerHTML = "Play";
 			break;
 		case "muteBtn":
 			toggleVolume(data);
