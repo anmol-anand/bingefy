@@ -62,13 +62,27 @@ window.onload = function(){
 	mainVideo.addEventListener('ended', function(){
 		trigger( {Control: "videoEnded"});
 	}, false);
-	
+	mainVideo.addEventListener('click', function(){
+		trigger( {Control: "playPauseBtn"});
+	}, false);
+
+	mainVideo.addEventListener('keydown', keystroke, false);
+
 	//sliders are not reinitialized on onload, so sync the video ac to them
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;
 	//in case of the seek slider the sliders are synced ac to the video, every moment
 	
 	sendControls();
 };
+
+function keystroke(event){
+	console.log(event.which);
+	switch (event.which){
+		case 32:
+			trigger( {Control: "playPauseBtn"});
+			break;
+	}
+}
 
 function sendControls(){
 
