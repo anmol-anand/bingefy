@@ -1,5 +1,6 @@
 window.onload = function(){
 
+	window.frame = document.getElementById('frame');
 	window.mainVideo = document.getElementById('mainVideo');
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
@@ -66,7 +67,7 @@ window.onload = function(){
 		trigger( {Control: "playPauseBtn"});
 	}, false);
 
-	mainVideo.addEventListener('keydown', keystroke, false);
+	document.addEventListener('keydown', keystroke, false);//see keystroke.js
 
 	//sliders are not reinitialized on onload, so sync the video ac to them
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;
@@ -74,15 +75,6 @@ window.onload = function(){
 	
 	sendControls();
 };
-
-function keystroke(event){
-	console.log(event.which);
-	switch (event.which){
-		case 32:
-			trigger( {Control: "playPauseBtn"});
-			break;
-	}
-}
 
 function sendControls(){
 
@@ -188,7 +180,7 @@ function autoSeekUpdate(curT, durT){
 }
 
 function toggleVolume(data){
-
+	
 	volumeSlider.value = data.volumeSliderValue;
 	if(data.Control=="volumeSlider"){
 		preVol = smallVol;
