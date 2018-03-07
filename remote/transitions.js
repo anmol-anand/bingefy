@@ -1,11 +1,9 @@
 function initPlayPause(){
 
-	colorPPB = '#000000'; //hyperparameter
+	colorPPB = '#a5a5a5'; //hyperparameter
 	heightPPB = 20; //hyperparameter
 	widthPPB = 0.375; //hyperparameter
-	transitionTimePPB = '0s';
-	playPauseBtn.style.width = heightPPB.toString() + 'px';
-	playPauseBtn.style.height = heightPPB.toString() + 'px';
+	transitionTimePPB = '0s';	
 	showPause();
 	transitionTimePPB = '0.15s'; //hyperparameter
 }

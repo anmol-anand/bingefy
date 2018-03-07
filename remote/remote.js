@@ -9,6 +9,8 @@ window.onload = function() {
 	window.smallVol = 0.20*volumeSlider.max;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.selfTriggerFullScreen = true;
+	window.tenSecFwd = document.getElementById('tenSecFwd');
+	window.tenSecBwd = document.getElementById('tenSecBwd');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
@@ -39,17 +41,23 @@ window.onload = function() {
 	playPauseBtn.addEventListener('click', function(){ 
 		trigger( {Control: "playPauseBtn"});
 	}, false);
-	seekSlider.addEventListener('change', function(){ 
+	seekSlider.addEventListener('input', function(){ 
 		trigger( {Control: "seekSlider", seekSliderValue: seekSlider.value});
 	}, false);
 	muteBtn.addEventListener('click', function(){
 		trigger( {Control: "muteBtn", volumeSliderValue: volumeSlider.value});
 	}, false);
-	volumeSlider.addEventListener('change', function(){
+	volumeSlider.addEventListener('input', function(){
 		trigger( {Control: "volumeSlider", volumeSliderValue: volumeSlider.value});
 	}, false);
 	fullScreenBtn.addEventListener('click', function(){ 
 		trigger( {Control: "fullScreenBtn"});
+	}, false);
+	tenSecFwd.addEventListener('click', function(){
+		trigger( {Control: "tenSecFwd"});
+	}, false);
+	tenSecBwd.addEventListener('click', function(){
+		trigger( {Control: "tenSecBwd"});
 	}, false);
 	
 	socket.emit('get controls', {});

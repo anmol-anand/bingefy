@@ -1,3 +1,5 @@
 #playPauseBtn{
 	position: relative;
+	height: 20px; /*change in script too*/
+	width: 20px;
 }

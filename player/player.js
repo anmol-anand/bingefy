@@ -10,6 +10,8 @@ window.onload = function(){
 	window.smallVol = 0.20*volumeSlider.max;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.selfTriggerFullScreen = true;
+	window.tenSecFwd = document.getElementById('tenSecFwd');
+	window.tenSecBwd = document.getElementById('tenSecBwd');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
@@ -29,7 +31,7 @@ window.onload = function(){
 	playPauseBtn.addEventListener('click', function(){ 
 		trigger( {Control: "playPauseBtn"});
 	}, false);
-	seekSlider.addEventListener('change', function(){ 
+	seekSlider.addEventListener('input', function(){ 
 		trigger( {Control: "seekSlider", seekSliderValue: seekSlider.value});
 	}, false);
 	mainVideo.addEventListener('timeupdate', function(){
@@ -41,15 +43,22 @@ window.onload = function(){
 	muteBtn.addEventListener('click', function(){
 		trigger( {Control: "muteBtn", volumeSliderValue: volumeSlider.value});
 	}, false);
-	volumeSlider.addEventListener('change', function(){
+	volumeSlider.addEventListener('input', function(){
 		trigger( {Control: "volumeSlider", volumeSliderValue: volumeSlider.value});
 	}, false);
 	fullScreenBtn.addEventListener('click', function(){ 
 		trigger( {Control: "fullScreenBtn"});
 	}, false);
+	tenSecFwd.addEventListener('click', function(){
+		trigger( {Control: "tenSecFwd"});
+	}, false);
+	tenSecBwd.addEventListener('click', function(){
+		trigger( {Control: "tenSecBwd"});
+	}, false);
 	
 	//sliders are not reinitialized on onload, so sync the video ac to them
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;
+	//in case of the seek slider the sliders are synced ac to the video, every moment
 	
 	sendControls();
 };
@@ -103,6 +112,22 @@ function toggle(data){
 			break;
 		case "fullScreenBtn":
 			toggleFullScreen();
+			break;
+		case "tenSecFwd":
+			if(mainVideo.currentTime + 10*mainVideo.playbackRate < mainVideo.duration){
+				mainVideo.currentTime += 10*mainVideo.playbackRate;
+			}
+			else{
+				mainVideo.currentTime = mainVideo.duration;
+			}
+			break;
+		case "tenSecBwd":
+			if(mainVideo.currentTime - 10*mainVideo.playbackRate > 0){
+				mainVideo.currentTime -= 10*mainVideo.playbackRate;
+			}
+			else{
+				mainVideo.currentTime = 0;
+			}
 			break;
 	}
 }

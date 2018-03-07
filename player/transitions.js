@@ -1,11 +1,9 @@
 function initPlayPause(){
 
-	colorPPB = '#000000'; //hyperparameter
+	colorPPB = '#a5a5a5'; //hyperparameter
 	heightPPB = 20; //hyperparameter
 	widthPPB = 0.375; //hyperparameter
 	transitionTimePPB = '0s';
-	playPauseBtn.style.width = heightPPB.toString() + 'px';
-	playPauseBtn.style.height = heightPPB.toString() + 'px';
 	showPause();
 	transitionTimePPB = '0.15s'; //hyperparameter
 }
@@ -59,4 +57,12 @@ function showPlay(){
 	w = 0.25*heightPPB;
 	rhalf.style.borderBottom = w.toString() + 'px solid transparent';
 	rhalf.style.height =  '0px';
+}
+
+function decat(str){
+	ret = "";
+	for(i = 0; i<str.length - 2; i++){
+		ret = ret + str[i];
+	}
+	return ret;
 }
