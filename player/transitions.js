@@ -9,6 +9,7 @@ function initPlayPause(){
 }
 
 function showPause(){
+
 	lhalf.style.transition = 'all ' + transitionTimePPB;
 	lhalf.style.position = 'relative';
 	lhalf.style.left = '0px';
@@ -32,6 +33,7 @@ function showPause(){
 }
 
 function showPlay(){
+
 	lhalf.style.transition = 'all ' + transitionTimePPB;
 	lhalf.style.position = 'relative';
 	lhalf.style.left = '0px';
@@ -57,12 +59,4 @@ function showPlay(){
 	w = 0.25*heightPPB;
 	rhalf.style.borderBottom = w.toString() + 'px solid transparent';
 	rhalf.style.height =  '0px';
-}
-
-function decat(str){
-	ret = "";
-	for(i = 0; i<str.length - 2; i++){
-		ret = ret + str[i];
-	}
-	return ret;
 }

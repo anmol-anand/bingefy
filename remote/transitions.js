@@ -9,6 +9,7 @@ function initPlayPause(){
 }
 
 function showPause(){
+
 	lhalf.style.transition = 'all ' + transitionTimePPB;
 	lhalf.style.position = 'relative';
 	lhalf.style.left = '0px';
@@ -32,6 +33,7 @@ function showPause(){
 }
 
 function showPlay(){
+	
 	lhalf.style.transition = 'all ' + transitionTimePPB;
 	lhalf.style.position = 'relative';
 	lhalf.style.left = '0px';

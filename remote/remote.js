@@ -71,7 +71,7 @@ function trigger(data){
 function toggle(data){
 	
 	switch (data.Control){
-		case "playPauseBtn" :
+		case "playPauseVideo" :
 			if(rhalf.style.height == '0px'){//currnetly showing Play, show Pause
 				showPause();
 			}

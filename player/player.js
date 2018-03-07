@@ -34,12 +34,6 @@ window.onload = function(){
 	seekSlider.addEventListener('input', function(){ 
 		trigger( {Control: "seekSlider", seekSliderValue: seekSlider.value});
 	}, false);
-	mainVideo.addEventListener('timeupdate', function(){
-		trigger( {Control: "updateSlider", curT: mainVideo.currentTime, durT: mainVideo.duration});
-	}, false);
-	mainVideo.addEventListener('ended', function(){
-		trigger( {Control: "videoEnded"});
-	}, false);
 	muteBtn.addEventListener('click', function(){
 		trigger( {Control: "muteBtn", volumeSliderValue: volumeSlider.value});
 	}, false);
@@ -54,6 +48,19 @@ window.onload = function(){
 	}, false);
 	tenSecBwd.addEventListener('click', function(){
 		trigger( {Control: "tenSecBwd"});
+	}, false);
+
+	mainVideo.addEventListener('pause', function(){
+		trigger( {Control: "playPauseVideo"});
+	}, false);
+	mainVideo.addEventListener('play', function(){
+		trigger( {Control: "playPauseVideo"});
+	}, false);
+	mainVideo.addEventListener('timeupdate', function(){
+		trigger( {Control: "updateSlider", curT: mainVideo.currentTime, durT: mainVideo.duration});
+	}, false);
+	mainVideo.addEventListener('ended', function(){
+		trigger( {Control: "videoEnded"});
 	}, false);
 	
 	//sliders are not reinitialized on onload, so sync the video ac to them
@@ -84,13 +91,19 @@ function trigger(data){
 function toggle(data){
 
 	switch (data.Control){
-		case "playPauseBtn" :
+		case "playPauseBtn": 
 			if(mainVideo.paused){
 				mainVideo.play();
-				showPause();
 			}
 			else{
 				mainVideo.pause();
+			}
+			break;
+		case "playPauseVideo" :
+			if(rhalf.style.height == '0px'){//currnetly showing Play, show Pause
+				showPause();
+			}
+			else{
 				showPlay();
 			}
 			break;
