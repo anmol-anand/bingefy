@@ -7,8 +7,8 @@ window.onload = function(){
 	window.durationTime = document.getElementById('durationTime');
 	window.muteBtn = document.getElementById('muteBtn');
 	window.volumeSlider = document.getElementById('volumeSlider');
-	window.preVol = volumeSlider.value;
 	window.smallVol = 0.20*volumeSlider.max;
+	window.preVol = smallVol;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.selfTriggerFullScreen = true;
 	window.tenSecFwd = document.getElementById('tenSecFwd');
@@ -18,6 +18,20 @@ window.onload = function(){
 	window.lhalf = document.getElementById('lhalf');
 	window.rhalf = document.getElementById('rhalf');
 	initPlayPause();
+
+	//sliders are not reinitialized on onload, so sync the video ac to them
+	//in case of the seek slider the sliders are synced ac to the video, every moment
+	mainVideo.volume = volumeSlider.value/volumeSlider.max;
+
+	//wehn video is loaded volume slider is not reinitialized but muteBtn is so sync it
+	if(volumeSlider.value==0){
+		muteBtn.innerHTML = "Unmute";
+	}
+	else{
+		muteBtn.innerHTML = "Mute";
+	}
+
+	window.firstTrigger = false; // to nullify the effect of mainVideo.play eventListener at load as the play icon is manually initialized, we don't want it to be changed again
 
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
@@ -52,10 +66,13 @@ window.onload = function(){
 	}, false);
 
 	mainVideo.addEventListener('pause', function(){
+		firstTrigger = true;
 		trigger( {Control: "playPauseVideo"});
 	}, false);
 	mainVideo.addEventListener('play', function(){
-		trigger( {Control: "playPauseVideo"});
+		if(firstTrigger){
+			trigger( {Control: "playPauseVideo"});
+		}
 	}, false);
 	mainVideo.addEventListener('timeupdate', function(){
 		trigger( {Control: "updateSlider", curT: mainVideo.currentTime, durT: mainVideo.duration});
@@ -66,14 +83,9 @@ window.onload = function(){
 	mainVideo.addEventListener('click', function(){
 		trigger( {Control: "playPauseBtn"});
 	}, false);
-
-	document.addEventListener('keydown', keystroke, false);//see keystroke.js
-
-	//sliders are not reinitialized on onload, so sync the video ac to them
-	mainVideo.volume = volumeSlider.value/volumeSlider.max;
-	//in case of the seek slider the sliders are synced ac to the video, every moment
-	
-	sendControls();
+	mainVideo.addEventListener('dblclick', function(){
+		trigger( {Control: "fullScreenFirst"});
+	}, false);
 	
 	document.addEventListener('webkitfullscreenchange', function(e){
 		trigger( {Control: "fullScreenBtn"});
@@ -84,6 +96,10 @@ window.onload = function(){
 	document.addEventListener('fullscreenchange', function(e){
 		trigger( {Control: "fullScreenBtn"});
 	}, false);
+
+	document.addEventListener('keydown', keystroke, false);//see keystroke.js
+	
+	sendControls();
 
 };
 
