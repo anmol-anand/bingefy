@@ -6,7 +6,7 @@ function keystroke(event){
 			trigger( {Control: "playPauseBtn"});
 			break;
 		case 70:
-			trigger( {Control: "fullScreenBtn"});
+			trigger( {Control: "fullScreenFirst"});
 			break;
 		case 38:
 			trigger( {Control: "volumeSlider", volumeSliderValue: Number(volumeSlider.value) + 1});

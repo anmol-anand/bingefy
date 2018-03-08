@@ -42,7 +42,7 @@ window.onload = function(){
 		trigger( {Control: "volumeSlider", volumeSliderValue: volumeSlider.value});
 	}, false);
 	fullScreenBtn.addEventListener('click', function(){ 
-		trigger( {Control: "fullScreenBtn"});
+		trigger( {Control: "fullScreenFirst"});
 	}, false);
 	tenSecFwd.addEventListener('click', function(){
 		trigger( {Control: "tenSecFwd"});
@@ -74,6 +74,17 @@ window.onload = function(){
 	//in case of the seek slider the sliders are synced ac to the video, every moment
 	
 	sendControls();
+	
+	document.addEventListener('webkitfullscreenchange', function(e){
+		trigger( {Control: "fullScreenBtn"});
+	}, false);
+	document.addEventListener('mozfullscreenchange', function(e){
+		trigger( {Control: "fullScreenBtn"});
+	}, false);
+	document.addEventListener('fullscreenchange', function(e){
+		trigger( {Control: "fullScreenBtn"});
+	}, false);
+
 };
 
 function sendControls(){
@@ -128,6 +139,9 @@ function toggle(data){
 			break;
 		case "volumeSlider":
 			toggleVolume(data);
+			break;
+		case "fullScreenFirst":
+			fullScreenFirstfunction();
 			break;
 		case "fullScreenBtn":
 			toggleFullScreen();
@@ -205,10 +219,8 @@ function toggleVolume(data){
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;
 }
 
-function toggleFullScreen(){
-	
+function fullScreenFirstfunction(){
 	if(fullScreenBtn.innerHTML=="Full Screen"){
-		fullScreenBtn.innerHTML = "Exit Full Screen";
 		if(mainVideo.requestFullscreen){
 			mainVideo.requestFullscreen();
 		}
@@ -221,9 +233,9 @@ function toggleFullScreen(){
 		else if(mainVideo.mozRequestFullScreen){
 			mainVideo.mozRequestFullScreen();
 		}
+		return;
 	}
 	else{
-		fullScreenBtn.innerHTML = "Full Screen";
 		if (document.exitFullscreen) {
 			document.exitFullscreen();
 		}
@@ -236,5 +248,14 @@ function toggleFullScreen(){
 		else if (document.webkitCancelFullScreen) {
 			document.webkitCancelFullScreen();
 		}
+	}
+}
+
+function toggleFullScreen(){
+	if(fullScreenBtn.innerHTML=="Full Screen"){
+		fullScreenBtn.innerHTML = "Exit Full Screen";
+	}
+	else{
+		fullScreenBtn.innerHTML = "Full Screen";
 	}
 }

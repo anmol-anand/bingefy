@@ -51,7 +51,7 @@ window.onload = function() {
 		trigger( {Control: "volumeSlider", volumeSliderValue: volumeSlider.value});
 	}, false);
 	fullScreenBtn.addEventListener('click', function(){ 
-		trigger( {Control: "fullScreenBtn"});
+		trigger( {Control: "fullScreenFirst"});
 	}, false);
 	tenSecFwd.addEventListener('click', function(){
 		trigger( {Control: "tenSecFwd"});
