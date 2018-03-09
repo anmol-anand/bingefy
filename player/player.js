@@ -10,9 +10,9 @@ window.onload = function(){
 	window.smallVol = 0.20*volumeSlider.max;
 	window.preVol = smallVol;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
-	window.selfTriggerFullScreen = true;
 	window.tenSecFwd = document.getElementById('tenSecFwd');
 	window.tenSecBwd = document.getElementById('tenSecBwd');
+	window.subtitles = document.getElementById('subtitles');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
@@ -34,6 +34,14 @@ window.onload = function(){
 	window.firstTrigger = false; // to nullify the effect of mainVideo.play eventListener at load as the play icon is manually initialized, we don't want it to be changed again
 
 	window.socket = io.connect();
+	socket.on('movtracks', function(movtracks){
+
+		fillMovs(movtracks);
+	});
+	socket.on('subtracks', function(subtracks){
+
+		fillSubs(subtracks);
+	});
 	socket.on('toggle', function(data){
 
 		toggle(data);
@@ -102,6 +110,28 @@ window.onload = function(){
 	sendControls();
 
 };
+
+function fillMovs(movtracks){
+	var source = document.createElement('source');
+	source.src = "../trailers/movs/" + movtracks[1];
+	mainVideo.appendChild(source);
+}
+
+function fillSubs(subtracks){
+	for(var i = 0; i<subtracks.length; i++){
+		var name = subtracks[i];
+		if(name.substring(name.length-4, name.length)!=".vtt"){
+			continue;
+		}
+		var track = document.createElement('track');
+		track.kind = 'subtitles';
+		track.src = "../trailers/subs/" + subtracks[i];
+		mainVideo.appendChild(track);
+	}
+	for(var i = 0; i<mainVideo.textTracks.length; i++){
+		mainVideo.textTracks[i].mode = 'hidden';
+	}
+}
 
 function sendControls(){
 

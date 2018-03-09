@@ -4,6 +4,9 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
+var movtracks = require("./trailers/movs/movs.json");
+var subtracks = require("./trailers/subs/subs.json");
+
 server.listen(process.env.port || 3000);
 console.log("Server running..")
 
@@ -17,6 +20,10 @@ app.get('/remote', function(req, res) {
 
 var connections = [];
 io.sockets.on('connection', function(socket){
+
+	io.sockets.emit('movtracks', movtracks);
+	io.sockets.emit('subtracks', subtracks);
+
 	connections.push(socket);
 	console.log("Connected: %s Sockets Connected", connections.length);
 
