@@ -1,6 +1,7 @@
 window.onload = function(){
 
 	window.frame = document.getElementById('frame');
+	window.controlBar = document.getElementById('contorlBar');
 	window.mainVideo = document.getElementById('mainVideo');
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
@@ -12,7 +13,9 @@ window.onload = function(){
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.tenSecFwd = document.getElementById('tenSecFwd');
 	window.tenSecBwd = document.getElementById('tenSecBwd');
-	window.subtitles = document.getElementById('subtitles');
+	window.cc = document.getElementById('cc');
+	window.ccBtn = document.getElementById('ccBtn');
+	window.ccDiv = document.getElementById('ccDiv');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
@@ -72,6 +75,14 @@ window.onload = function(){
 	tenSecBwd.addEventListener('click', function(){
 		trigger( {Control: "tenSecBwd"});
 	}, false);
+	ccBtn.addEventListener('click', function(){
+		if(ccDiv.style.display=='none'){
+			ccDiv.style.display = 'block';
+		}
+		else if(ccDiv.style.display=='block'){
+			ccDiv.style.display = 'none';
+		}
+	}, false);
 
 	mainVideo.addEventListener('pause', function(){
 		firstTrigger = true;
@@ -107,6 +118,12 @@ window.onload = function(){
 
 	document.addEventListener('keydown', keystroke, false);//see keystroke.js
 	
+	document.addEventListener('click', function(event){
+		if(!event.target.matches('#ccBtn')){
+			ccDiv.style.display = 'none';
+		}
+	}, false);
+	
 	sendControls();
 
 };
@@ -118,16 +135,27 @@ function fillMovs(movtracks){
 }
 
 function fillSubs(subtracks){
+
 	for(var i = 0; i<subtracks.length; i++){
+		
 		var name = subtracks[i];
 		if(name.substring(name.length-4, name.length)!=".vtt"){
 			continue;
 		}
+
+		// appending track to mainVideo
 		var track = document.createElement('track');
 		track.kind = 'subtitles';
 		track.src = "../trailers/subs/" + subtracks[i];
 		mainVideo.appendChild(track);
+
+		// appending ccItem to dropdown ccDiv
+		var ccItem = document.createElement('button');
+		ccItem.class = 'ccItem';
+		ccItem.innerHTML = name;
+		ccDiv.appendChild(ccItem);
 	}
+
 	for(var i = 0; i<mainVideo.textTracks.length; i++){
 		mainVideo.textTracks[i].mode = 'hidden';
 	}

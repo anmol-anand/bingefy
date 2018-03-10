@@ -1,9 +1,10 @@
 CHECKLIST
 
 	1. subtitles controls
-	2. automatic generation of movs.josn and subs.json
-	3. restrain unwanted connections
-	4. lock remote screen
-	5. movie selection option + next and previous movie buttons
-	6. file navigation
-	7. styling and smoothening
+	2. .srt to .vtt
+	3. automatic generation of movs.josn and subs.json
+	4. restrain unwanted connections
+	5. lock remote screen
+	6. movie selection option + next and previous movie buttons
+	7. file navigation
+	8. styling and smoothening
