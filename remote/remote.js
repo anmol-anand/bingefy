@@ -8,9 +8,11 @@ window.onload = function() {
 	window.preVol = volumeSlider.value;
 	window.smallVol = 0.20*volumeSlider.max;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
-	window.selfTriggerFullScreen = true;
 	window.tenSecFwd = document.getElementById('tenSecFwd');
 	window.tenSecBwd = document.getElementById('tenSecBwd');
+ 	window.cc = document.getElementById('cc');
+ 	window.ccBtn = document.getElementById('ccBtn');
+ 	window.ccDiv = document.getElementById('ccDiv');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
@@ -22,6 +24,14 @@ window.onload = function() {
 
 		toggle(data);
 	});
+	socket.on('movtracks', function(movtracks){
+ 		
+ 		fillMovs(movtracks);
+ 	});
+ 	socket.on('subtracks', function(subtracks){
+ 		
+ 		fillSubs(subtracks);
+ 	});
 	socket.on('current controls', function(data){
 		
 		if(data.playPauseBtn=='showPlay'){
@@ -59,9 +69,59 @@ window.onload = function() {
 	tenSecBwd.addEventListener('click', function(){
 		trigger( {Control: "tenSecBwd"});
 	}, false);
+	ccBtn.addEventListener('click', function(){
+		if(ccDiv.style.display=='none'){
+			ccDiv.style.display = 'block';
+		}
+ 		else if(ccDiv.style.display=='block'){
+ 			ccDiv.style.display = 'none';
+ 		}
+ 	}, false);
+
+	document.addEventListener('click', function(event){
+		if(!event.target.matches('#ccBtn')){
+			ccDiv.style.display = 'none';
+		}
+	}, false);
 	
 	socket.emit('get controls', {});
 };
+
+function fillMovs(movtracks){
+
+	window.movsPath = "../trailers/movs/";
+}
+
+function fillSubs(subtracks){
+
+	window.subsPath = "../trailers/subs/";
+	
+	for(var i = 0; i<subtracks.length; i++){
+
+		var name = subtracks[i];
+  		if(name.substring(name.length-4, name.length)!=".vtt"){
+  			continue;
+  		}
+
+		// appending ccItem to dropdown ccDiv
+		var ccItem = document.createElement('button');
+		ccItem.className = 'ccItem';
+		ccItem.name = name;
+		ccItem.innerHTML = name; // you might change this during styling, so we will use name to store name for the backend
+		ccDiv.appendChild(ccItem);
+	}
+
+	window.ccItems = document.getElementsByClassName('ccItem');
+
+	for(var i = 0; i < ccItems.length; i++){
+
+		var ccItem = ccItems[i];
+		ccItem.addEventListener('click', function(){
+
+			trigger( {Control: 'cc', name: this.name});
+		}, false);
+	}
+}
 
 function trigger(data){
 

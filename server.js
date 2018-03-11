@@ -21,8 +21,8 @@ app.get('/remote', function(req, res) {
 var connections = [];
 io.sockets.on('connection', function(socket){
 
-	io.sockets.emit('movtracks', movtracks);
-	io.sockets.emit('subtracks', subtracks);
+	socket.emit('movtracks', movtracks);
+	socket.emit('subtracks', subtracks);
 
 	connections.push(socket);
 	console.log("Connected: %s Sockets Connected", connections.length);
@@ -33,12 +33,18 @@ io.sockets.on('connection', function(socket){
 	});
 
 	socket.on('trigger', function(data){
-		io.sockets.emit('toggle', data);
+		for(var i = 0; i<connections.length; i++){
+			connections[i].emit('toggle', data);
+		}
 	});
 	socket.on('get controls', function(data){
-		io.sockets.emit('get controls', data);
+		for(var i = 0; i<connections.length; i++){
+			connections[i].emit('get controls', data);
+		}
 	});
 	socket.on('current controls', function(data){
-		io.sockets.emit('current controls', data);
+		for(var i = 0; i<connections.length; i++){
+			connections[i].emit('current controls', data);
+		}
 	});
 });
