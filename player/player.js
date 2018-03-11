@@ -129,12 +129,17 @@ window.onload = function(){
 };
 
 function fillMovs(movtracks){
+
+	window.movsPath = "../trailers/movs/";
+
 	var source = document.createElement('source');
-	source.src = "../trailers/movs/" + movtracks[1];
+	source.src = movsPath + movtracks[1];
 	mainVideo.appendChild(source);
 }
 
 function fillSubs(subtracks){
+
+	window.subsPath = "../trailers/subs/";
 
 	for(var i = 0; i<subtracks.length; i++){
 		
@@ -146,19 +151,33 @@ function fillSubs(subtracks){
 		// appending track to mainVideo
 		var track = document.createElement('track');
 		track.kind = 'subtitles';
-		track.src = "../trailers/subs/" + subtracks[i];
+		track.src = subsPath + name;
+		track.label = name;
 		mainVideo.appendChild(track);
 
 		// appending ccItem to dropdown ccDiv
 		var ccItem = document.createElement('button');
-		ccItem.class = 'ccItem';
-		ccItem.innerHTML = name;
+		ccItem.className = 'ccItem';
+		ccItem.name = name;
+		ccItem.innerHTML = name; // you might change this during styling, so we will use name to store name for the backend
 		ccDiv.appendChild(ccItem);
 	}
 
 	for(var i = 0; i<mainVideo.textTracks.length; i++){
 		mainVideo.textTracks[i].mode = 'hidden';
 	}
+
+	window.ccItems = document.getElementsByClassName('ccItem');
+
+	for(var i = 0; i < ccItems.length; i++){
+
+		var ccItem = ccItems[i];
+		ccItem.addEventListener('click', function(){
+
+			trigger( {Control: 'cc', name: this.name});
+		}, false);
+	}
+
 }
 
 function sendControls(){
@@ -234,6 +253,16 @@ function toggle(data){
 			}
 			else{
 				mainVideo.currentTime = 0;
+			}
+			break;
+		case "cc":
+			for(var j = 0; j<mainVideo.textTracks.length; j++){
+				if(mainVideo.textTracks[j].label == data.name){
+					mainVideo.textTracks[j].mode = 'showing';
+				}
+				else{
+					mainVideo.textTracks[j].mode = 'hidden';
+				}
 			}
 			break;
 	}
