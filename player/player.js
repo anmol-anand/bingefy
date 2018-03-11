@@ -37,13 +37,11 @@ window.onload = function(){
 	window.firstTrigger = false; // to nullify the effect of mainVideo.play eventListener at load as the play icon is manually initialized, we don't want it to be changed again
 
 	window.socket = io.connect();
-	socket.on('movtracks', function(movtracks){
+	socket.on('trailer', function(data){
 
-		fillMovs(movtracks);
-	});
-	socket.on('subtracks', function(subtracks){
-
-		fillSubs(subtracks);
+		window.trailerPath = "." + data.trailerPath;
+		fillMovs(data.movtracks);
+		fillSubs(data.subtracks);
 	});
 	socket.on('toggle', function(data){
 
@@ -130,28 +128,21 @@ window.onload = function(){
 
 function fillMovs(movtracks){
 
-	window.movsPath = "../trailers/movs/";
-
 	var source = document.createElement('source');
-	source.src = movsPath + movtracks[1];
+	source.src = trailerPath + movtracks[1];
 	mainVideo.appendChild(source);
 }
 
 function fillSubs(subtracks){
 
-	window.subsPath = "../trailers/subs/";
-
 	for(var i = 0; i<subtracks.length; i++){
 		
 		var name = subtracks[i];
-		if(name.substring(name.length-4, name.length)!=".vtt"){
-			continue;
-		}
 
 		// appending track to mainVideo
 		var track = document.createElement('track');
 		track.kind = 'subtitles';
-		track.src = subsPath + name;
+		track.src = trailerPath + name;
 		track.label = name;
 		mainVideo.appendChild(track);
 

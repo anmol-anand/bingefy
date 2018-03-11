@@ -24,14 +24,12 @@ window.onload = function() {
 
 		toggle(data);
 	});
-	socket.on('movtracks', function(movtracks){
- 		
- 		fillMovs(movtracks);
- 	});
- 	socket.on('subtracks', function(subtracks){
- 		
- 		fillSubs(subtracks);
- 	});
+	socket.on('trailer', function(data){
+
+		window.trailerPath = "." + data.trailerPath;
+		fillMovs(data.movtracks);
+		fillSubs(data.subtracks);
+	});
 	socket.on('current controls', function(data){
 		
 		if(data.playPauseBtn=='showPlay'){
@@ -89,19 +87,13 @@ window.onload = function() {
 
 function fillMovs(movtracks){
 
-	window.movsPath = "../trailers/movs/";
 }
 
 function fillSubs(subtracks){
-
-	window.subsPath = "../trailers/subs/";
 	
 	for(var i = 0; i<subtracks.length; i++){
 
 		var name = subtracks[i];
-  		if(name.substring(name.length-4, name.length)!=".vtt"){
-  			continue;
-  		}
 
 		// appending ccItem to dropdown ccDiv
 		var ccItem = document.createElement('button');
