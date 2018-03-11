@@ -247,15 +247,52 @@ function toggle(data){
 			}
 			break;
 		case "cc":
-			for(var j = 0; j<mainVideo.textTracks.length; j++){
+			var subsOff = true;
+			for(var j = 0; j < mainVideo.textTracks.length; j++){
 				if(mainVideo.textTracks[j].label == data.name){
+					subsOff = false;
 					mainVideo.textTracks[j].mode = 'showing';
+					topLeftDisplay(mainVideo.textTracks[j].label);
 				}
 				else{
 					mainVideo.textTracks[j].mode = 'hidden';
 				}
 			}
+			if(subsOff){
+				topLeftDisplay("none");
+			}
 			break;
+		case "nextSubtrack":
+			var brokenOut = false;
+			for(var j = 0; j < mainVideo.textTracks.length; j++){
+				if(mainVideo.textTracks[j].mode=='showing'){
+					mainVideo.textTracks[j].mode = 'hidden';
+					if( j+1 < mainVideo.textTracks.length){
+						mainVideo.textTracks[j+1].mode = 'showing';
+						topLeftDisplay(mainVideo.textTracks[j+1].label);
+					}
+					else{
+						topLeftDisplay("none");
+					}
+					brokenOut = true;
+					break;
+				}
+			}
+			if((!brokenOut) && (mainVideo.textTracks.length > 0)){
+				mainVideo.textTracks[0].mode = 'showing';
+				topLeftDisplay(mainVideo.textTracks[0].label);
+			}
+			break;
+	}
+}
+
+function topLeftDisplay(str){
+	ccItems = document.getElementsByClassName('ccItem');
+	for(var i = 0; i<ccItems.length; i++){
+		if(ccItems[i].name==str){
+			console.log("Subtitles: " + ccItems[i].innerHTML);
+			return;
+		}
 	}
 }
 

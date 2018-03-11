@@ -1,11 +1,16 @@
 CHECKLIST
 
+	localaddress generator { wifi/hotspot port: en0 inet, ethernet port: en5 port}
 	subtitles controls
+		- size
+		- inc/dec delay
 	restrain unwanted connections
 	lock remote screen
 	movie selection option + next and previous movie buttons
 	file navigation
-	styling and smoothening
+	styling and smoothening 
+		- style topLeftDisplay function
+		- height/font/size of subtitle
 
 	done:
 	.srt to .vtt

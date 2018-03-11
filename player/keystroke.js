@@ -23,6 +23,9 @@ function keystroke(event){
 		case 37:
 			trigger( {Control: "tenSecBwd"});
 			break;
+		case 67:
+			trigger( {Control: "nextSubtrack"});
+			break;
 		default:
 			if(48<=x && x<=57){
 				trigger( {Control: "seekSlider", seekSliderValue: seekSlider.max*(x-48)/10});
