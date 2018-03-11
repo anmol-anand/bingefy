@@ -4,7 +4,8 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-var trailerPath = "./trailers/" + require("./trailers/info.json").which + "/"
+var trailerPath = "./trailers/" + require("./trailers/info.json").which + "/";
+var srt2vtt = require('srt-to-vtt');
 var fs = require('fs');
 var files = fs.readdirSync(trailerPath);
 var movtracks = [];
@@ -17,7 +18,21 @@ for(var i = 0; i<files.length; i++){
 		subtracks.push(files[i]);
 	}
 	else if(files[i].substring( files[i].length - 4, files[i].length)==".srt"){
-		
+  		var out = files[i].substring( 0, files[i].length - 4) + "$$" + ".vtt";
+  		var exists = false;
+  		for(var j = 0; j<files.length; j++){
+  			if(files[j]==out){
+  				exists = true;
+  				break;
+  			}
+  		}
+  		if(exists){
+  			continue;
+  		}
+		fs.createReadStream(trailerPath + files[i])
+  			.pipe(srt2vtt())
+  			.pipe( fs.createWriteStream( trailerPath + out));
+  		subtracks.push(out);
 	}
 }
 

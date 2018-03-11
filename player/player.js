@@ -129,7 +129,7 @@ window.onload = function(){
 function fillMovs(movtracks){
 
 	var source = document.createElement('source');
-	source.src = trailerPath + movtracks[1];
+	source.src = trailerPath + movtracks[0];
 	mainVideo.appendChild(source);
 }
 
