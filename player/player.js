@@ -43,6 +43,12 @@ window.onload = function(){
 		fillMovs(data.movtracks);
 		fillSubs(data.subtracks);
 	});
+	socket.on('inet', function(data){
+
+		var inet = document.createElement('h1');
+		inet.innerHTML = data.ethernet + "<br>" + data.wifi;
+		frame.appendChild(inet);
+	}, false);
 	socket.on('toggle', function(data){
 
 		toggle(data);

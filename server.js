@@ -51,6 +51,7 @@ var connections = [];
 io.sockets.on('connection', function(socket){
 
 	socket.emit('trailer', {trailerPath: trailerPath, movtracks: movtracks, subtracks: subtracks});
+	socket.emit('inet', require("./inet.json"));
 
 	connections.push(socket);
 	console.log("Connected: %s Sockets Connected", connections.length);

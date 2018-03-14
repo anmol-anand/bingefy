@@ -11,6 +11,7 @@ CHECKLIST
 	styling and smoothening 
 		- style topLeftDisplay function
 		- height/font/size of subtitle
+		- displaying inetaddrs
 
 	done:
 	.srt to .vtt
