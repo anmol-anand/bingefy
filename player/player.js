@@ -132,6 +132,12 @@ window.onload = function(){
 
 };
 
+function changeDetails(){
+	
+	socket.emit( 'changeDetails', {trailerFolder: "Incendies", trailerName: "Incendies.mp4"});
+	window.location.replace(window.location.pathname + window.location.search + window.location.hash);
+}
+
 function fillMovs(movtracks){
 
 	var source = document.createElement('source');
