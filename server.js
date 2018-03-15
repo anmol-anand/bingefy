@@ -6,15 +6,16 @@ var io = require('socket.io').listen(server);
 
 var srt2vtt = require('srt-to-vtt');
 var fs = require('fs');
-var trailerFolder = "avengers";
-var trailerName = "Avengers2012.mp4";
-var movtracks;
-var subtracks;
-var trailerPath;
+var trailerFolder = null;
+var trailerName = null;
+var movtracks = [];
+var subtracks = [];
+var trailerPath = "./trailers";
 
 function movieDetails(){
 
-	trailerPath = "./trailers/" + trailerFolder + "/";
+	if(!trailerFolder)return;
+	trailerPath = trailerFolder + "/";
 	var files = fs.readdirSync(trailerPath);
 	movtracks = [trailerName];
 	subtracks = [];
@@ -64,6 +65,8 @@ io.sockets.on('connection', function(socket){
 	});
 
 	socket.emit('inet', require("./inet.json"));
+
+	socket.emit('info', require("./trailers/info.json"));
 
 	connections.push(socket);
 	console.log("Connected: %s Sockets Connected", connections.length);
