@@ -64,7 +64,7 @@ io.sockets.on('connection', function(socket){
 		trailerName = data.trailerName;
 	});
 
-	socket.emit('inet', require("./inet.json"));
+	socket.emit('inet', require("./prestart/inet.json"));
 
 	socket.emit('info', require("./trailers/info.json"));
 

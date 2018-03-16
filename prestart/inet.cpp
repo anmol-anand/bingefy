@@ -3,11 +3,11 @@ using namespace std;
 
 int main(){
 
-	freopen("ifconfig", "w", stdout);
+	freopen("./prestart/ifconfig", "w", stdout);
 	system("ifconfig");
 	
-	freopen("ifconfig", "r", stdin);
-	freopen("inet.json", "w", stdout);
+	freopen("./prestart/ifconfig", "r", stdin);
+	freopen("./prestart/inet.json", "w", stdout);
 	
 	string line;
 	bool locaten0 = false, locaten5 = false, onedone = false;
