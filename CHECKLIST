@@ -7,6 +7,7 @@ CHECKLIST
 	restrain unwanted connections
 	lock remote screen
 	styling and smoothening 
+		- add thumbnail images
 		- style topLeftDisplay function
 		- height/font/size of subtitle
 		- displaying inetaddrs
