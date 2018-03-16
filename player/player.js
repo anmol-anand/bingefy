@@ -155,6 +155,7 @@ function fillRightDiv(){
 		thumbnail.addEventListener('click', function(){
 
 			changeDetails( trailers[Number(this.id)].folder, trailers[Number(this.id)].name);
+			trigger({ Control: "reload"});
 		}, false);
 	}
 }
@@ -162,6 +163,10 @@ function fillRightDiv(){
 function changeDetails(folder, name){
 	
 	socket.emit( 'changeDetails', {trailerFolder: folder, trailerName: name});
+}
+
+function reload(){
+
 	window.location.replace(window.location.pathname + window.location.search + window.location.hash);
 }
 
@@ -321,6 +326,9 @@ function toggle(data){
 				mainVideo.textTracks[0].mode = 'showing';
 				topLeftDisplay(mainVideo.textTracks[0].label);
 			}
+			break;
+		case "reload":
+			reload();
 			break;
 	}
 }

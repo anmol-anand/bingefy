@@ -57,11 +57,11 @@ app.get('/remote', function(req, res) {
 var connections = [];
 io.sockets.on('connection', function(socket){
 
-	movieDetails();
 	socket.emit('trailer', {trailerPath: trailerPath, movtracks: movtracks, subtracks: subtracks});
 	socket.on('changeDetails', function(data){
 		trailerFolder = data.trailerFolder;
 		trailerName = data.trailerName;
+		movieDetails();
 	});
 
 	socket.emit('inet', require("./prestart/inet.json"));

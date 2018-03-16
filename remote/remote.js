@@ -1,5 +1,8 @@
 window.onload = function() {
 
+	window.controlBar = document.getElementById('contorlBar');
+	window.rightDiv = document.getElementById('rightDiv');
+	window.thumbList = document.getElementById('thumbList');
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
 	window.durationTime = document.getElementById('durationTime');
@@ -45,6 +48,11 @@ window.onload = function() {
 		volumeSlider.value = data.volumeSlider;
 		fullScreenBtn.innerHTML = data.fullScreenBtn;
 	});
+	socket.on('info', function(data){
+
+		window.trailers = data.trailers;
+		fillRightDiv();
+	});
 
 	playPauseBtn.addEventListener('click', function(){ 
 		trigger( {Control: "playPauseBtn"});
@@ -84,6 +92,40 @@ window.onload = function() {
 	
 	socket.emit('get controls', {});
 };
+
+function fillRightDiv(){
+
+	for(var i = 0; i<trailers.length; i++){		
+		
+		var thumbnail = document.createElement('button');
+		thumbnail.className = 'thumbnail';
+		thumbnail.id = '' + i;
+		thumbnail.innerHTML = trailers[i].name;
+		thumbList.appendChild(thumbnail);
+	}
+
+	window.thumbnails = document.getElementsByClassName('thumbnail');
+
+	for(var i = 0; i<thumbnails.length; i++){
+	
+		var thumbnail = thumbnails[i];
+		thumbnail.addEventListener('click', function(){
+
+			changeDetails( trailers[Number(this.id)].folder, trailers[Number(this.id)].name);
+			trigger( { Control: "reload"});
+		}, false);
+	}
+}
+
+function changeDetails(folder, name){
+	
+	socket.emit( 'changeDetails', {trailerFolder: folder, trailerName: name});
+}
+
+function reload(){
+
+	window.location.replace(window.location.pathname + window.location.search + window.location.hash);
+}
 
 function fillMovs(movtracks){
 
@@ -148,6 +190,9 @@ function toggle(data){
 			break;
 		case "fullScreenBtn":
 			toggleFullScreen();
+			break;
+		case "reload":
+			reload();
 			break;
 	}
 }
