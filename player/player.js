@@ -18,6 +18,8 @@ window.onload = function(){
 	window.cc = document.getElementById('cc');
 	window.ccBtn = document.getElementById('ccBtn');
 	window.ccDiv = document.getElementById('ccDiv');
+	window.next = document.getElementById('next');
+	window.previous = document.getElementById('previous');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
@@ -92,6 +94,12 @@ window.onload = function(){
 			ccDiv.style.display = 'none';
 		}
 	}, false);
+	next.addEventListener('click', function(){
+		trigger( {Control: 'next'});
+	}, false);
+	previous.addEventListener('click', function(){
+		trigger( {Control: 'previous'});
+	}, false);
 
 	mainVideo.addEventListener('pause', function(){
 		firstTrigger = true;
@@ -136,6 +144,15 @@ window.onload = function(){
 	sendControls();
 };
 
+function curTrailerIndex(){
+
+	for(var i = 0; i<trailers.length; i++){
+		if( "." + trailers[i].folder + "/" + trailers[i].name == sourcePath){
+			return i;
+		}
+	}
+}
+
 function fillRightDiv(){
 
 	for(var i = 0; i<trailers.length; i++){		
@@ -173,7 +190,8 @@ function reload(){
 function fillMovs(movtracks){
 
 	var source = document.createElement('source');
-	source.src = trailerPath + movtracks[0];
+	window.sourcePath = trailerPath + movtracks[0]; // will be needed later in curTrailerIndex
+	source.src = sourcePath;
 	mainVideo.appendChild(source);
 }
 
@@ -329,6 +347,16 @@ function toggle(data){
 			break;
 		case "reload":
 			reload();
+			break;
+		case "next":
+			var changedTrailerIndex = (curTrailerIndex()+1)%(trailers.length);
+			changeDetails( trailers[changedTrailerIndex].folder, trailers[changedTrailerIndex].name);
+			trigger( {Control: 'reload'});
+			break;
+		case "previous":
+			var changedTrailerIndex = (curTrailerIndex()+(trailers.length)-1)%(trailers.length);
+			changeDetails( trailers[changedTrailerIndex].folder, trailers[changedTrailerIndex].name);
+			trigger( {Control: 'reload'});
 			break;
 	}
 }

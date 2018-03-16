@@ -16,6 +16,8 @@ window.onload = function() {
  	window.cc = document.getElementById('cc');
  	window.ccBtn = document.getElementById('ccBtn');
  	window.ccDiv = document.getElementById('ccDiv');
+	window.next = document.getElementById('next');
+	window.previous = document.getElementById('previous');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
@@ -83,6 +85,12 @@ window.onload = function() {
  			ccDiv.style.display = 'none';
  		}
  	}, false);
+	next.addEventListener('click', function(){
+		trigger( {Control: 'next'});
+	}, false);
+	previous.addEventListener('click', function(){
+		trigger( {Control: 'previous'});
+	}, false);
 
 	document.addEventListener('click', function(event){
 		if(!event.target.matches('#ccBtn')){
