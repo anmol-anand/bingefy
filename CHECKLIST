@@ -2,16 +2,12 @@ CHECKLIST
 
 	localaddress generator { wifi/hotspot port: en0 inet, ethernet port: en5 port}
 	subtitles controls
-		- size
 		- inc/dec delay
 	restrain unwanted connections
 	lock remote screen
 	styling and smoothening 
+		- auto adjust subtitle size ac to the mainVideo size
 		- add thumbnail images
 		- style topLeftDisplay function
-		- height/font/size of subtitle
 		- displaying inetaddrs
-
-	done:
-	.srt to .vtt
 	
