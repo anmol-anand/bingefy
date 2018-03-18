@@ -20,11 +20,16 @@ window.onload = function(){
 	window.ccDiv = document.getElementById('ccDiv');
 	window.next = document.getElementById('next');
 	window.previous = document.getElementById('previous');
+	window.previousTextTrack = 0; // Being used already
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.lhalf = document.getElementById('lhalf');
 	window.rhalf = document.getElementById('rhalf');
 	initPlayPause();
+
+	window.a = 0.16; // tape height to window height ratio
+	window.b = 0.67; // frame height to window height ratio
+	window.minVideoWidth = 640; // px
 
 	//sliders are not reinitialized on onload, so sync the video ac to them
 	//in case of the seek slider the sliders are synced ac to the video, every moment
@@ -145,11 +150,55 @@ window.onload = function(){
 			ccDiv.style.display = 'none';
 		}
 	}, false);
-	
+
+	window.addEventListener('resize', function(){
+
+		var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
+		fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
+	}, false);
+	// initial sizing of video
+	// BUG$$: I have to use the setTimeout function because the following does not work
+	// document.addEventListener('DOMContentLoaded', function() {
+
+	// 	var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
+	// 	fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
+	// }, false);
+	setTimeout(function(){
+
+		var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
+		fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
+	}, 1000);
+
 	sendControls();
 };
 
-function adjustSubs(){
+function fitVideo(ww, hh, aspectRatio){ // We have to fit the video in a box of wwxhh maintaining the aspect ratio
+
+	if(ww/hh > aspectRatio){
+
+		mainVideo.style.height = hh + "px"; // height is the deciding factor
+		mainVideo.style.fontSize = (hh * 28 / 800) + "pt"; // to adjust subtitle size
+	}
+	else{
+
+		mainVideo.style.height = (ww / aspectRatio) + "px"; // width is the decidinf=g factor
+		mainVideo.style.fontSize = ((ww / aspectRatio) * 28 / 800) + "pt"; // to adjust subtitle size
+	}
+
+	// BUG$$: Do something to reposition the cues immediately on video size change, they stay on their old position until the next cue
+	// ...but the below works pretty well too
+	for(var i = 0; i<mainVideo.textTracks.length; i++){
+		if(mainVideo.textTracks[i].mode = 'showing'){
+			mainVideo.textTracks[i].mode = 'hidden';
+			previousTextTrack = i;
+			setTimeout(function(){
+				mainVideo.textTracks[previousTextTrack].mode = 'showing';
+			}, 1000);
+		}
+	}
+}
+
+function adjustSubs(){ // adjust the subitle size on entering/exiting full screen
 
 	if( (mainVideo.offsetHeight/mainVideo.videoHeight) < (mainVideo.offsetWidth/mainVideo.videoWidth)){
 
@@ -236,6 +285,8 @@ function fillSubs(subtracks){
 	for(var i = 0; i<mainVideo.textTracks.length; i++){
 		mainVideo.textTracks[i].mode = 'hidden';
 	}
+
+	// BUG$$: On reload all textTracks were hidden ac to me, but this is not the case a textTrack is showing in the beginning
 
 	window.ccItems = document.getElementsByClassName('ccItem');
 

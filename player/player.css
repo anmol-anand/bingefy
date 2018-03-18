@@ -16,6 +16,33 @@
 }
 
 #mainVideo{
+	position: relative;
+	left: 0;
+	margin-left: auto;
+	margin-right: auto;
 	height: 800px; /* Will be used in changing font-size fo subtitles*/
 	font-size: 28pt; /* Will be used in changing font-size fo subtitles*/
 }
+
+#rightDiv{
+	height: 16vh; /* if changed, `a` to be updated in player.js too*/
+}
+
+#frame{
+	position:relative;
+	top: 0;
+	display: inline-block;
+}
+
+#inet{
+
+}
+
+/*body{
+	position: absolute;
+	margin:0 auto;
+}*/
+/*
+html, body {height:100%;}*/
+html {display:table; width:100%;}
+body {display:table-cell; text-align:center; vertical-align:middle;}

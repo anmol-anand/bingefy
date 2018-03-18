@@ -6,8 +6,7 @@ CHECKLIST
 	restrain unwanted connections
 	lock remote screen
 	styling and smoothening 
-		- auto adjust subtitle size ac to the mainVideo size
 		- add thumbnail images
 		- style topLeftDisplay function
 		- displaying inetaddrs
-	
+		- The controlBar in player should be able to shrink to minVideoWidth/640px as it has to have the same width as the mainVideo.
