@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "~4.16.2",
+    "express": "~4.16.3",
+    "fs": "*",
     "request-json": "~0.6.3",
     "socket.io": "~2.0.4",
-    "fs": "*",
     "srt-to-vtt": "*"
   }
 }

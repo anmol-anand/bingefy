@@ -5,7 +5,6 @@
 }
 
 #mainVideo::cue{
-	/*bottom: -100px;*/
 	color: #ffffff;
 	background-color: #0a0a0a;
 	border-radius: 0;
@@ -17,6 +16,6 @@
 }
 
 #mainVideo{
-	height: 800px;
-	font-size: 28pt;
+	height: 800px; /* Will be used in changing font-size fo subtitles*/
+	font-size: 28pt; /* Will be used in changing font-size fo subtitles*/
 }

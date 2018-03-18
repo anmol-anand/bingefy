@@ -125,12 +125,17 @@ window.onload = function(){
 	
 	document.addEventListener('webkitfullscreenchange', function(e){
 		trigger( {Control: "fullScreenBtn"});
+		adjustSubs();
 	}, false);
 	document.addEventListener('mozfullscreenchange', function(e){
 		trigger( {Control: "fullScreenBtn"});
+		adjustSubs();
+		// console.log(mainVideo.videoWidth + "x" + mainVideo.videoHeight); // dimensions of the actual video
+		// console.log(mainVideo.offsetWidth + "x" + mainVideo.offsetHeight); // dimensions of the video tag
 	}, false);
 	document.addEventListener('fullscreenchange', function(e){
 		trigger( {Control: "fullScreenBtn"});
+		adjustSubs();
 	}, false);
 
 	document.addEventListener('keydown', keystroke, false);//see keystroke.js
@@ -143,6 +148,18 @@ window.onload = function(){
 	
 	sendControls();
 };
+
+function adjustSubs(){
+
+	if( (mainVideo.offsetHeight/mainVideo.videoHeight) < (mainVideo.offsetWidth/mainVideo.videoWidth)){
+
+		mainVideo.style.fontSize = (mainVideo.offsetHeight * 28 / 800) + "pt";
+	}
+	else{
+
+		mainVideo.style.fontSize = ( ( mainVideo.offsetWidth * mainVideo.videoHeight / mainVideo.videoWidth) * 28 / 800) + "pt";
+	}
+}
 
 function curTrailerIndex(){
 
@@ -376,10 +393,10 @@ function autoSeekUpdate(curT, durT){
 	seekSlider.value = seekSlider.max*curT/durT;
 	var curhrs = Math.floor(curT/3600);
 	var curmins = Math.floor((curT%3600)/60);
-	var cursecs = Math.ceil(curT%60);
+	var cursecs = Math.floor(curT%60);
 	var durhrs = Math.floor(durT/3600);
 	var durmins = Math.floor((durT%3600)/60);
-	var dursecs = Math.ceil(durT%60);
+	var dursecs = Math.floor(durT%60);
 
 	if(cursecs < 10){
 		cursecs = "0" + cursecs;

@@ -210,10 +210,10 @@ function autoSeekUpdate(curT, durT){
 	seekSlider.value = seekSlider.max*curT/durT;
 	var curhrs = Math.floor(curT/3600);
 	var curmins = Math.floor((curT%3600)/60);
-	var cursecs = Math.ceil(curT%60);
+	var cursecs = Math.floor(curT%60);
 	var durhrs = Math.floor(durT/3600);
 	var durmins = Math.floor((durT%3600)/60);
-	var dursecs = Math.ceil(durT%60);
+	var dursecs = Math.floor(durT%60);
 
 	if(cursecs < 10){
 		cursecs = "0" + cursecs;
