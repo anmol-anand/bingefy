@@ -27,7 +27,6 @@ window.onload = function(){
 	window.rhalf = document.getElementById('rhalf');
 	initPlayPause();
 
-	window.a = 0.16; // tape height to window height ratio
 	window.b = 0.67; // frame height to window height ratio
 	window.minVideoWidth = 640; // px
 
@@ -221,19 +220,37 @@ function curTrailerIndex(){
 
 function fillRightDiv(){
 
-	for(var i = 0; i<trailers.length; i++){		
-		
-		var thumbnail = document.createElement('button');
+	for(var i = 0; i<trailers.length; i++){
+
+		var thumbnail = document.createElement('div');
 		thumbnail.className = 'thumbnail';
 		thumbnail.id = '' + i;
-		thumbnail.innerHTML = trailers[i].name;
+
+		var img = document.createElement('img');
+		var videoPath = trailers[i].folder + "/" + trailers[i].name;
+		var thumbPath = "../trailers/thumbs/";
+		for(j = 11; j<videoPath.length - 4; j++){
+			if(videoPath[j]=='/'){
+				thumbPath = thumbPath + "__";
+				continue;
+			}
+			thumbPath = thumbPath + videoPath[j];
+		}
+		thumbPath = thumbPath + ".jpg";
+		img.src = thumbPath;
+		thumbnail.appendChild(img);
+
+		var thumbText = document.createElement('div');
+		thumbText.innerHTML = trailers[i].name.substring(0, trailers[i].name.length - 4);
+
 		thumbList.appendChild(thumbnail);
+		thumbList.appendChild(thumbText);
 	}
 
 	window.thumbnails = document.getElementsByClassName('thumbnail');
 
 	for(var i = 0; i<thumbnails.length; i++){
-	
+
 		var thumbnail = thumbnails[i];
 		thumbnail.addEventListener('click', function(){
 

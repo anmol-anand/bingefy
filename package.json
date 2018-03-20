@@ -4,7 +4,7 @@
   "description": "A revolutionary movie player for Binge-Watchers.",
   "main": "server.js",
   "scripts": {
-    "prestart": "./prestart/executable",
+    "prestart": "./prestart/executable 300",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

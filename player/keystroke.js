@@ -3,6 +3,7 @@ function keystroke(event){
 	var x = event.which;
 	switch (x){
 		case 32:
+			event.preventDefault(); // preventing scroll-down
 			trigger( {Control: "playPauseBtn"});
 			break;
 		case 70:
