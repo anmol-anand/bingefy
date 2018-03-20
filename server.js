@@ -148,5 +148,5 @@ function heightAdjust(srcPath, dstPath) {
                 	throw err;
                 }
             });
-        });
+	});
 }
