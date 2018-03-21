@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
 		}
 		thumbPath = thumbPath + ".jpg";
 
-		command = "ffmpeg -ss 00:00:10 -i " + videoPath + " -vf scale=" + size + ":-1 -vframes 1 " + thumbPath;
+		command = "ffmpeg -ss 00:00:13 -i " + videoPath + " -vf scale=-1:" + size + " -vframes 1 " + thumbPath;
 		system( &command[0]);
 	}while(line[0]!='}');
 }

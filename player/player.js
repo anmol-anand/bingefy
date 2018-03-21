@@ -152,8 +152,7 @@ window.onload = function(){
 
 	window.addEventListener('resize', function(){
 
-		var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
-		fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
+		windowResized();
 	}, false);
 	// initial sizing of video
 	// BUG$$: I have to use the setTimeout function because the following does not work
@@ -164,12 +163,35 @@ window.onload = function(){
 	// }, false);
 	setTimeout(function(){
 
+		frame.style.width = Math.min(mainVideo.offsetWidth, window.innerWidth);
 		var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
 		fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
 	}, 1000);
 
 	sendControls();
 };
+
+function windowResized(){ // make changes that ought to be made on window resizing, here
+
+	// mainVideo
+	frame.style.width = Math.min(mainVideo.offsetWidth, window.innerWidth);
+	var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
+	fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
+
+	// rightDiv
+	// rightDiv.style.width = Math.max( window.innerWidth, minVideoWidth) + "px";
+	rightDiv.style.width = window.innerWidth + "px";
+	if( window.innerWidth >= thumbList.style.width.substring(0, thumbList.style.width.length - 2) ){ // well within
+
+		thumbList.style.left = ( Number(rightDiv.style.left.substring(0, rightDiv.style.left.length - 2)) + Number(rightDiv.style.width.substring(0, rightDiv.style.width.length - 2)) - Number(thumbList.style.width.substring(0, thumbList.style.width.length - 2)) )/2 + "px";
+		rightDiv.style.overflowX = "hidden";
+	}
+	else{ // overflowing
+
+		thumbList.style.left = 0;
+		rightDiv.style.overflowX = "scroll";
+	}
+}
 
 function fitVideo(ww, hh, aspectRatio){ // We have to fit the video in a box of wwxhh maintaining the aspect ratio
 
@@ -227,6 +249,7 @@ function fillRightDiv(){
 		thumbnail.id = '' + i;
 
 		var img = document.createElement('img');
+		img.className = 'thumbImg';
 		var videoPath = trailers[i].folder + "/" + trailers[i].name;
 		var thumbPath = "../trailers/thumbs/";
 		for(j = 11; j<videoPath.length - 4; j++){
@@ -242,9 +265,10 @@ function fillRightDiv(){
 
 		var thumbText = document.createElement('div');
 		thumbText.innerHTML = trailers[i].name.substring(0, trailers[i].name.length - 4);
+		thumbText.className = 'thumbText';
 
+		thumbnail.appendChild(thumbText);
 		thumbList.appendChild(thumbnail);
-		thumbList.appendChild(thumbText);
 	}
 
 	window.thumbnails = document.getElementsByClassName('thumbnail');
@@ -257,6 +281,43 @@ function fillRightDiv(){
 			changeDetails( trailers[Number(this.id)].folder, trailers[Number(this.id)].name);
 			trigger({ Control: "reload"});
 		}, false);
+	}
+
+	// styling rightDiv
+
+	thumbTexts = document.getElementsByClassName('thumbText');
+	thumbImgs = document.getElementsByClassName('thumbImg');
+
+	var i;
+	for(i = 0; i<thumbTexts.length; i++){
+
+		thumbTexts[i].style.width = thumbImgs[i].width + "px";
+		thumbTexts[i].style.height = "20px";
+		thumbnails[i].style.width = thumbImgs[i].width + "px";
+
+		if(i==0){
+			thumbnails[i].style.left = "20px";
+			thumbnails[i].style.top = "0px";
+		}
+		else{
+			thumbnails[i].style.left = ( Number(thumbnails[i-1].style.left.substring(0, thumbnails[i-1].style.left.length - 2)) + Number(thumbnails[i-1].style.width.substring(0, thumbnails[i-1].style.width.length - 2)) + 20) + "px";
+			thumbnails[i].style.top = (Number(thumbnails[i-1].style.top.substring(0, thumbnails[i-1].style.top.length - 2)) - 200) + "px";
+		}
+	}
+
+	thumbList.style.width = ( Number(thumbnails[i-1].style.left.substring(0, thumbnails[i-1].style.left.length - 2)) + Number(thumbnails[i-1].style.width.substring(0, thumbnails[i-1].style.width.length - 2)) + 20) + "px";
+	
+	// rightDiv.style.width = Math.max( window.innerWidth, minVideoWidth) + "px";
+	rightDiv.style.width = window.innerWidth + "px";
+	if( window.innerWidth >= thumbList.style.width.substring(0, thumbList.style.width.length - 2) ){ // well within
+
+		thumbList.style.left = ( Number(rightDiv.style.left.substring(0, rightDiv.style.left.length - 2)) + Number(rightDiv.style.width.substring(0, rightDiv.style.width.length - 2)) - Number(thumbList.style.width.substring(0, thumbList.style.width.length - 2)) )/2 + "px";
+		rightDiv.style.overflowX = "hidden";
+	}
+	else{ // overflowing
+
+		thumbList.style.left = 0;
+		rightDiv.style.overflowX = "scroll";
 	}
 }
 

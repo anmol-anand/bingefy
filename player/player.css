@@ -23,15 +23,24 @@
 }
 
 #rightDiv{
-	height: 200px; /* keeping it fixed */
+	position: relative;
+	height: 220px; /* keeping it fixed */
+	overflow-y: hidden;
+}
+
+#thumbList{
+	position:relative;
+	height: 200px;
 }
 
 #frame{
 	position:relative;
 	top: 0;
-	display: inline-block; /* keeps the controlBar vertically in-line with the mainVideo */
+	/*display: inline-block;  keeps the controlBar vertically in-line with the mainVideo */
+	overflow-y: hidden;
+	overflow-x: scroll;
 }
-
+/*
 html{
 	display:table; 
 	width:100%;
@@ -41,4 +50,36 @@ body{
 	display:table-cell; 
 	text-align:center; 
 	vertical-align:middle;
+}*/
+
+body{
+	margin:0;
 }
+
+#inet{
+	text-align: center;
+	color: #202020;
+	font: 15pt copperplate;
+	font-weight: 300;
+}
+
+.thumbnail{
+	position:relative;
+	height: 200px;
+}
+
+.thumbImg{
+	position:relative;
+	top: 0;
+	left: 0;
+}
+
+.thumbText{
+	position: relative;
+	top: 0;
+	text-align: center;
+	color: #202020;
+	font: 13.5pt cochin;
+	font-weight: 600;
+}
+
