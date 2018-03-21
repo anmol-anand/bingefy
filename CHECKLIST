@@ -6,7 +6,6 @@ CHECKLIST
 	restrain unwanted connections
 	lock remote screen
 	styling and smoothening 
-		- add thumbnail images
+		- style scroll bars
 		- style topLeftDisplay function
-		- displaying inetaddrs
 		- The controlBar in player should be able to shrink to minVideoWidth/640px as it has to have the same width as the mainVideo.

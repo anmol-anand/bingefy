@@ -1,7 +1,7 @@
 window.onload = function(){
 
 	window.frame = document.getElementById('frame');
-	window.controlBar = document.getElementById('contorlBar');
+	window.controlBar = document.getElementById('controlBar');
 	window.rightDiv = document.getElementById('rightDiv');
 	window.thumbList = document.getElementById('thumbList');
 	window.mainVideo = document.getElementById('mainVideo');
@@ -161,11 +161,14 @@ window.onload = function(){
 	// 	var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
 	// 	fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
 	// }, false);
+
 	setTimeout(function(){
 
 		frame.style.width = Math.min(mainVideo.offsetWidth, window.innerWidth);
 		var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
 		fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
+		positionVideo();
+
 	}, 1000);
 
 	sendControls();
@@ -177,9 +180,9 @@ function windowResized(){ // make changes that ought to be made on window resizi
 	frame.style.width = Math.min(mainVideo.offsetWidth, window.innerWidth);
 	var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
 	fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
+	positionVideo();
 
 	// rightDiv
-	// rightDiv.style.width = Math.max( window.innerWidth, minVideoWidth) + "px";
 	rightDiv.style.width = window.innerWidth + "px";
 	if( window.innerWidth >= thumbList.style.width.substring(0, thumbList.style.width.length - 2) ){ // well within
 
@@ -190,6 +193,20 @@ function windowResized(){ // make changes that ought to be made on window resizi
 
 		thumbList.style.left = 0;
 		rightDiv.style.overflowX = "scroll";
+	}
+}
+
+function positionVideo(){
+
+	if( mainVideo.offsetWidth < window.innerWidth){
+
+		mainVideo.style.left = ( window.innerWidth - mainVideo.offsetWidth)/2 + "px";
+		controlBar.style.left = ( window.innerWidth - mainVideo.offsetWidth)/2 + "px";
+	}
+	else{
+
+		mainVideo.style.left = "0px";
+		controlBar.style.left = "0px";
 	}
 }
 
@@ -205,6 +222,8 @@ function fitVideo(ww, hh, aspectRatio){ // We have to fit the video in a box of 
 		mainVideo.style.height = (ww / aspectRatio) + "px"; // width is the decidinf=g factor
 		mainVideo.style.fontSize = ((ww / aspectRatio) * 28 / 800) + "pt"; // to adjust subtitle size
 	}
+
+	controlBar.style.width = mainVideo.offsetWidth + "px";
 
 	// BUG$$: Do something to reposition the cues immediately on video size change, they stay on their old position until the next cue
 	// ...but the below works pretty well too
@@ -307,7 +326,6 @@ function fillRightDiv(){
 
 	thumbList.style.width = ( Number(thumbnails[i-1].style.left.substring(0, thumbnails[i-1].style.left.length - 2)) + Number(thumbnails[i-1].style.width.substring(0, thumbnails[i-1].style.width.length - 2)) + 20) + "px";
 	
-	// rightDiv.style.width = Math.max( window.innerWidth, minVideoWidth) + "px";
 	rightDiv.style.width = window.innerWidth + "px";
 	if( window.innerWidth >= thumbList.style.width.substring(0, thumbList.style.width.length - 2) ){ // well within
 

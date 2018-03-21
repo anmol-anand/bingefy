@@ -17,9 +17,14 @@
 
 #mainVideo{
 	position: relative;
-	left: 0;
-	height: 800px; /* Will be used in changing font-size fo subtitles*/
-	font-size: 28pt; /* Will be used in changing font-size fo subtitles*/
+	top: 0;
+	/*height: 800px;  Will be used in changing font-size fo subtitles*/
+	/*font-size: 28pt;  Will be used in changing font-size fo subtitles*/
+}
+
+#controlBar{
+	position: relative;
+	top: 0px;
 }
 
 #rightDiv{
