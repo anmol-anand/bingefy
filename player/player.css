@@ -27,6 +27,10 @@
 	top: 0px;
 }
 
+#playPauseSprite{
+	height: 20px;
+}
+
 #rightDiv{
 	position: relative;
 	height: 220px; /* keeping it fixed */

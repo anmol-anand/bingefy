@@ -23,9 +23,7 @@ window.onload = function(){
 	window.previousTextTrack = 0; // Being used already
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
-	window.lhalf = document.getElementById('lhalf');
-	window.rhalf = document.getElementById('rhalf');
-	initPlayPause();
+	window.playPauseSprite = document.getElementById('playPauseSprite');
 
 	window.b = 0.67; // frame height to window height ratio
 	window.minVideoWidth = 640; // px
@@ -400,7 +398,7 @@ function fillSubs(subtracks){
 function sendControls(){
 
 	socket.emit('current controls', { 
-		playPauseBtn: (rhalf.style.height=='0px'?'showPlay':'showPause'), 
+		playPauseBtn: ( playPauseSprite.src.substring(playPauseSprite.src.length - 8, playPauseSprite.src.length - 4)), 
 		seekSlider: seekSlider.value, 
 		currentTime: currentTime.innerHTML, 
 		durationTime: durationTime.innerHTML,
@@ -427,11 +425,11 @@ function toggle(data){
 			}
 			break;
 		case "playPauseVideo" :
-			if(rhalf.style.height == '0px'){//currnetly showing Play, show Pause
-				showPause();
+			if( playPauseSprite.src.substring(playPauseSprite.src.length - 8, playPauseSprite.src.length - 4) == "play"){//currnetly showing Play, show Pause
+				playPauseSprite.src = "../sprites/pause.png";
 			}
 			else{
-				showPlay();
+				playPauseSprite.src = "../sprites/play.png";
 			}
 			break;
 		case "seekSlider" :
@@ -442,7 +440,7 @@ function toggle(data){
 			autoSeekUpdate(data.curT, data.durT);
 			break;
 		case "videoEnded":
-			showPlay();
+			playPauseSprite.src = "../sprites/play.png";
 			break;
 		case "muteBtn":
 			toggleVolume(data);
