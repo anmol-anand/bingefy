@@ -26,7 +26,7 @@
 	  
 	  	<div id = 'controlBar'>
 
-			<div id = 'playPauseBtn'>
+			<div id = 'playPauseBtn' class = 'spriteContainer'>
 				<img src = "../sprites/pause.png" id = 'playPauseSprite' class = 'sprites'>
 			</div>
 	    	<input id = 'seekSlider' type = 'range' min = '0' max = '1000000' value = '0' step = '1'>
@@ -34,19 +34,23 @@
 			<span id = 'durationTime'></span>
 			<button id = 'muteBtn'>Mute</button>
 			<input id = 'volumeSlider' type = 'range' min = '0' max = '20' value = '20' step = '1'>
-	    	<div id = 'fullScreenBtn'>
+	    	<div id = 'fullScreenBtn' class = 'spriteContainer'>
 	    		<img src = '../sprites/enter_full_screen.png' id = 'fullScreenSprite' class = 'sprites'>
 	    	</div>
-	    	<button id = 'tenSecFwd'>Forward 10 sec</button>
-	    	<button id = 'tenSecBwd'>Backward 10 sec</button>
 	    	<div id = 'cc'>
-	    		<button id = 'ccBtn'>cc</button>
+		    	<div id = 'ccBtn' class = 'spriteContainer'>
+		    		<img src = '../sprites/ccBtn.png' id = 'ccSprite' class = 'sprites'>
+		    	</div>
 	    		<div id = 'ccDiv' style="display: none;">
 	    			<button class = 'ccItem' name = 'none'>none</button>
 	    		</div>
 	    	</div>
-	    	<button id = 'next'>next</button>
-	    	<button id = 'previous'>previous</button>
+	    	<div id = 'next' class = 'spriteContainer'>
+	    		<img src = '../sprites/next.png' id = 'nextSprite' class = 'sprites'>
+	    	</div>
+	    	<div id = 'previous' class = 'spriteContainer'>
+	    		<img src = '../sprites/previous.png' id = 'previousSprite' class = 'sprites'>
+	    	</div>
 	    	
 		</div>
 	

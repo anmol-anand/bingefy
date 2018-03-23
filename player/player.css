@@ -31,6 +31,11 @@
 	height: 20px;
 }
 
+.spriteContainer{
+	height: 20px;
+	width: 20px;
+}
+
 #rightDiv{
 	position: relative;
 	height: 220px; /* keeping it fixed */

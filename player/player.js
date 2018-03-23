@@ -14,8 +14,6 @@ window.onload = function(){
 	window.preVol = smallVol;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.fullScreenSprite = document.getElementById('fullScreenSprite');
-	window.tenSecFwd = document.getElementById('tenSecFwd');
-	window.tenSecBwd = document.getElementById('tenSecBwd');
 	window.cc = document.getElementById('cc');
 	window.ccBtn = document.getElementById('ccBtn');
 	window.ccDiv = document.getElementById('ccDiv');
@@ -82,12 +80,6 @@ window.onload = function(){
 	}, false);
 	fullScreenBtn.addEventListener('click', function(){ 
 		trigger( {Control: "fullScreenFirst"});
-	}, false);
-	tenSecFwd.addEventListener('click', function(){
-		trigger( {Control: "tenSecFwd"});
-	}, false);
-	tenSecBwd.addEventListener('click', function(){
-		trigger( {Control: "tenSecBwd"});
 	}, false);
 	ccBtn.addEventListener('click', function(){
 		if(ccDiv.style.display=='none'){
