@@ -53,6 +53,10 @@
 	/*display: inline-block;  keeps the controlBar vertically in-line with the mainVideo */
 	overflow-y: hidden;
 	overflow-x: scroll;
+
+	color: #202020;
+	font: 13.5pt cochin;
+	font-weight: 200;
 }
 /*
 html{

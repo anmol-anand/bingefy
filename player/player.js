@@ -74,6 +74,12 @@ window.onload = function(){
 	seekSlider.addEventListener('input', function(){ 
 		trigger( {Control: "seekSlider", seekSliderValue: seekSlider.value});
 	}, false);
+	volumeBox.addEventListener('mouseover', function(){
+		volumeSlider.style.display = 'block';
+	}, false);
+	volumeBox.addEventListener('mouseout', function(){
+		volumeSlider.style.display = 'none';
+	}, false);
 	muteBtn.addEventListener('click', function(){
 		trigger( {Control: "muteBtn", volumeSliderValue: volumeSlider.value});
 	}, false);

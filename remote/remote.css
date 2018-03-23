@@ -12,3 +12,9 @@
 	height: 20px;
 	width: 20px;
 }
+
+#controlBar{
+	color: #202020;
+	font: 13.5pt cochin;
+	font-weight: 200;
+}
