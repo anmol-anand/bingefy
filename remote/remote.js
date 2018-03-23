@@ -11,6 +11,7 @@ window.onload = function() {
 	window.preVol = volumeSlider.value;
 	window.smallVol = 0.20*volumeSlider.max;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
+	window.fullScreenSprite = document.getElementById('fullScreenSprite');
 	window.tenSecFwd = document.getElementById('tenSecFwd');
 	window.tenSecBwd = document.getElementById('tenSecBwd');
  	window.cc = document.getElementById('cc');
@@ -46,7 +47,12 @@ window.onload = function() {
 		durationTime.innerHTML = data.durationTime;
 		muteBtn.innerHTML = data.muteBtn;
 		volumeSlider.value = data.volumeSlider;
-		fullScreenBtn.innerHTML = data.fullScreenBtn;
+		if(data.fullScreenBtn == "nter_full_screen"){
+			fullScreenSprite.src = "../sprites/enter_full_screen.png";
+		}
+		else{
+			fullScreenSprite.src = "../sprites/exit_full_screen.png";
+		}
 	});
 	socket.on('info', function(data){
 
@@ -256,11 +262,10 @@ function toggleVolume(data){
 }
 
 function toggleFullScreen(){
-	
-	if(fullScreenBtn.innerHTML=="Full Screen"){
-		fullScreenBtn.innerHTML = "Exit Full Screen";
+	if(fullScreenSprite.src.substring(fullScreenSprite.src.length - 20, fullScreenSprite.src.length - 4)=="nter_full_screen"){
+		fullScreenSprite.src = "../sprites/exit_full_screen.png"
 	}
 	else{
-		fullScreenBtn.innerHTML = "Full Screen";
+		fullScreenSprite.src = "../sprites/enter_full_screen.png"
 	}
 }
