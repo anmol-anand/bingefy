@@ -6,8 +6,10 @@ window.onload = function() {
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
 	window.durationTime = document.getElementById('durationTime');
+	window.volumeBox = document.getElementById('volumeBox');
 	window.muteBtn = document.getElementById('muteBtn');
 	window.volumeSlider = document.getElementById('volumeSlider');
+	window.muteSprite = document.getElementById('muteSprite');
 	window.preVol = volumeSlider.value;
 	window.smallVol = 0.20*volumeSlider.max;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
@@ -45,7 +47,12 @@ window.onload = function() {
 		seekSlider.value = data.seekSlider;
 		currentTime.innerHTML = data.currentTime;
 		durationTime.innerHTML = data.durationTime;
-		muteBtn.innerHTML = data.muteBtn;
+		if(data.muteBtn=="vol"){
+			muteSprite.src = "../sprites/vol.png";
+		}
+		else{
+			muteSprite.src = "../sprites/vol1.png";
+		}
 		volumeSlider.value = data.volumeSlider;
 		if(data.fullScreenBtn == "nter_full_screen"){
 			fullScreenSprite.src = "../sprites/enter_full_screen.png";
@@ -254,10 +261,10 @@ function toggleVolume(data){
 	}
 	
 	if(volumeSlider.value==0){
-		muteBtn.innerHTML = "Unmute";
+		muteSprite.src = "../sprites/vol1.png";
 	}
 	else{
-		muteBtn.innerHTML = "Mute";
+		muteSprite.src = "../sprites/vol.png";
 	}
 }
 

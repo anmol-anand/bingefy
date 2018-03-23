@@ -8,7 +8,9 @@ window.onload = function(){
 	window.seekSlider = document.getElementById('seekSlider');
 	window.currentTime = document.getElementById('currentTime');
 	window.durationTime = document.getElementById('durationTime');
+	window.volumeBox = document.getElementById('volumeBox');
 	window.muteBtn = document.getElementById('muteBtn');
+	window.muteSprite = document.getElementById('muteSprite');
 	window.volumeSlider = document.getElementById('volumeSlider');
 	window.smallVol = 0.20*volumeSlider.max;
 	window.preVol = smallVol;
@@ -33,10 +35,10 @@ window.onload = function(){
 
 	//wehn video is loaded volume slider is not reinitialized but muteBtn is so sync it
 	if(volumeSlider.value==0){
-		muteBtn.innerHTML = "Unmute";
+		muteSprite.src = "../sprites/vol1.png";
 	}
 	else{
-		muteBtn.innerHTML = "Mute";
+		muteSprite.src = "../sprites/vol.png";
 	}
 
 	window.firstTrigger = false; // to nullify the effect of mainVideo.play eventListener at load as the play icon is manually initialized, we don't want it to be changed again
@@ -395,7 +397,7 @@ function sendControls(){
 		seekSlider: seekSlider.value, 
 		currentTime: currentTime.innerHTML, 
 		durationTime: durationTime.innerHTML,
-		muteBtn: muteBtn.innerHTML,
+		muteBtn: muteSprite.src.substring(muteSprite.src.length - 7, muteSprite.src.length - 4),
 		volumeSlider: volumeSlider.value,
 		fullScreenBtn: fullScreenSprite.src.substring(fullScreenSprite.src.length - 20, fullScreenSprite.src.length - 4),
 	});
@@ -571,10 +573,10 @@ function toggleVolume(data){
 	}
 	
 	if(volumeSlider.value==0){
-		muteBtn.innerHTML = "Unmute";
+		muteSprite.src = "../sprites/vol1.png";
 	}
 	else{
-		muteBtn.innerHTML = "Mute";
+		muteSprite.src = "../sprites/vol.png";
 	}
 
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;

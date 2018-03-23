@@ -25,8 +25,12 @@
 	    <input id = 'seekSlider' type = 'range' min = '0' max = '1000000' value = '0' step = '1'>
 		<span id = 'currentTime'></span> / 
 		<span id = 'durationTime'></span>
-		<button id = 'muteBtn'>Mute</button>
-		<input id = 'volumeSlider' type = 'range' min = '0' max = '20' value = '20' step = '1'>
+		<div id = 'volumeBox'>
+			<div id = 'muteBtn' class = 'spriteContainer'>
+				<img src = "../sprites/vol.png" id = 'muteSprite' class = 'sprites'>
+			</div>
+			<input id = 'volumeSlider' type = 'range' min = '0' max = '20' value = '20' step = '1'>
+    	</div>
     	<div id = 'fullScreenBtn' class = 'spriteContainer'>
     		<img src = '../sprites/enter_full_screen.png' id = 'fullScreenSprite' class = 'sprites'>
     	</div>
