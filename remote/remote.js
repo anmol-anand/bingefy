@@ -20,9 +20,7 @@ window.onload = function() {
 	window.previous = document.getElementById('previous');
 
 	window.playPauseBtn = document.getElementById('playPauseBtn');
-	window.lhalf = document.getElementById('lhalf');
-	window.rhalf = document.getElementById('rhalf');
-	initPlayPause();
+	window.playPauseSprite = document.getElementById('playPauseSprite');
 
 	window.socket = io.connect();
 	socket.on('toggle', function(data){
@@ -37,11 +35,11 @@ window.onload = function() {
 	});
 	socket.on('current controls', function(data){
 		
-		if(data.playPauseBtn=='showPlay'){
-			showPlay();
+		if(data.playPauseBtn=='play'){
+			playPauseSprite.src = "../sprites/play.png"
 		}
 		else{
-			showPause();
+			playPauseSprite.src = "../sprites/pause.png"
 		}
 		seekSlider.value = data.seekSlider;
 		currentTime.innerHTML = data.currentTime;
@@ -174,11 +172,11 @@ function toggle(data){
 	
 	switch (data.Control){
 		case "playPauseVideo" :
-			if(rhalf.style.height == '0px'){//currnetly showing Play, show Pause
-				showPause();
+			if( playPauseSprite.src.substring(playPauseSprite.src.length - 8, playPauseSprite.src.length - 4) == "play"){//currnetly showing Play, show Pause
+ 				playPauseSprite.src = "../sprites/pause.png";
 			}
 			else{
-				showPlay();
+				playPauseSprite.src = "../sprites/play.png";
 			}
 			break;
 		case "seekSlider" : 
@@ -188,7 +186,7 @@ function toggle(data){
 			autoSeekUpdate(data.curT, data.durT);
 			break;
 		case "videoEnded":
-			showPlay();
+			playPauseSprite.src = "../sprites/play.png";
 			break;
 		case "muteBtn":
 			toggleVolume(data);
