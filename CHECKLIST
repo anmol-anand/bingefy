@@ -12,3 +12,7 @@ CHECKLIST
 		- ’ --> this character in .srt is replaced by a question mark in .vtt files
 		- there is some problem in naming of files also the thumbnails are not generated properly due to that
 		- the subtitle button is not triggering on click properly since the replacement of button with sprite
+
+	problems in chrome:
+		- sprites update very late in player
+		- full screen not working

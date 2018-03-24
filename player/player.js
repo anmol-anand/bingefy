@@ -178,8 +178,11 @@ function windowResized(){ // make changes that ought to be made on window resizi
 	// mainVideo
 	frame.style.width = Math.min(mainVideo.offsetWidth, window.innerWidth);
 	var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
+	// BUG$$: position video takes effect before fitVideo in chrome when exiting full screen, fucking up the positioning of the video...
+	// ... to be precise fitVideo does run before but mainVideo.offsetWidth/Height do not show the values that were set to them by mainVideo.style.width/height until later some time
 	fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
 	positionVideo();
+
 
 	// rightDiv
 	rightDiv.style.width = window.innerWidth + "px";
@@ -198,7 +201,7 @@ function windowResized(){ // make changes that ought to be made on window resizi
 function positionVideo(){
 
 	if( mainVideo.offsetWidth < window.innerWidth){
-
+		
 		mainVideo.style.left = ( window.innerWidth - mainVideo.offsetWidth)/2 + "px";
 		controlBar.style.left = ( window.innerWidth - mainVideo.offsetWidth)/2 + "px";
 	}
@@ -212,13 +215,13 @@ function positionVideo(){
 function fitVideo(ww, hh, aspectRatio){ // We have to fit the video in a box of wwxhh maintaining the aspect ratio
 
 	if(ww/hh > aspectRatio){
-
 		mainVideo.style.height = hh + "px"; // height is the deciding factor
+		// mainVideo.style.width = hh*aspectRatio + "px"; // height is the deciding factor
 		mainVideo.style.fontSize = (hh * 28 / 800) + "pt"; // to adjust subtitle size
 	}
 	else{
-
-		mainVideo.style.height = (ww / aspectRatio) + "px"; // width is the decidinf=g factor
+		mainVideo.style.height = (ww / aspectRatio) + "px"; // width is the deciding factor
+		// mainVideo.style.width = ww + "px"; // width is the deciding factor
 		mainVideo.style.fontSize = ((ww / aspectRatio) * 28 / 800) + "pt"; // to adjust subtitle size
 	}
 
@@ -309,9 +312,9 @@ function fillRightDiv(){
 	var i;
 	for(i = 0; i<thumbTexts.length; i++){
 
-		thumbTexts[i].style.width = thumbImgs[i].width + "px";
+		thumbTexts[i].style.width = thumbImgs[i].naturalWidth + "px";
 		thumbTexts[i].style.height = "20px";
-		thumbnails[i].style.width = thumbImgs[i].width + "px";
+		thumbnails[i].style.width = thumbImgs[i].naturalWidth + "px";
 
 		if(i==0){
 			thumbnails[i].style.left = "20px";
@@ -405,6 +408,7 @@ function sendControls(){
 		durationTime: durationTime.innerHTML,
 		muteBtn: muteSprite.src.substring(muteSprite.src.length - 7, muteSprite.src.length - 4),
 		volumeSlider: volumeSlider.value,
+		preVol: preVol,
 		fullScreenBtn: fullScreenSprite.src.substring(fullScreenSprite.src.length - 20, fullScreenSprite.src.length - 4),
 	});
 }

@@ -10,8 +10,8 @@ window.onload = function() {
 	window.muteBtn = document.getElementById('muteBtn');
 	window.volumeSlider = document.getElementById('volumeSlider');
 	window.muteSprite = document.getElementById('muteSprite');
-	window.preVol = volumeSlider.value;
 	window.smallVol = 0.20*volumeSlider.max;
+	window.preVol = smallVol;
 	window.fullScreenBtn = document.getElementById('fullScreenBtn');
 	window.fullScreenSprite = document.getElementById('fullScreenSprite');
 	window.tenSecFwd = document.getElementById('tenSecFwd');
@@ -54,6 +54,7 @@ window.onload = function() {
 			muteSprite.src = "../sprites/vol1.png";
 		}
 		volumeSlider.value = data.volumeSlider;
+		preVol = data.preVol;
 		if(data.fullScreenBtn == "nter_full_screen"){
 			fullScreenSprite.src = "../sprites/enter_full_screen.png";
 		}
