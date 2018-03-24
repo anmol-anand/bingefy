@@ -105,7 +105,7 @@ window.onload = function() {
 	}, false);
 
 	document.addEventListener('click', function(event){
-		if(!event.target.matches('#ccBtn')){
+		if(!event.target.matches('#ccSprite')){ // the target is the innermost element or the element at the leaf
 			ccDiv.style.display = 'none';
 		}
 	}, false);

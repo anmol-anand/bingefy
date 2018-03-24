@@ -139,7 +139,7 @@ window.onload = function(){
 	document.addEventListener('keydown', keystroke, false);//see keystroke.js
 	
 	document.addEventListener('click', function(event){
-		if(!event.target.matches('#ccBtn')){
+		if(!event.target.matches('#ccSprite')){ // the target is the innermost element or the element at the leaf
 			ccDiv.style.display = 'none';
 		}
 	}, false);
