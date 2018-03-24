@@ -6,6 +6,7 @@ window.onload = function(){
 	window.thumbList = document.getElementById('thumbList');
 	window.mainVideo = document.getElementById('mainVideo');
 	window.seekSlider = document.getElementById('seekSlider');
+	window.trailerNameText = document.getElementById('trailerNameText');
 	window.currentTime = document.getElementById('currentTime');
 	window.durationTime = document.getElementById('durationTime');
 	window.volumeBox = document.getElementById('volumeBox');
@@ -73,12 +74,6 @@ window.onload = function(){
 	}, false);
 	seekSlider.addEventListener('input', function(){ 
 		trigger( {Control: "seekSlider", seekSliderValue: seekSlider.value});
-	}, false);
-	volumeBox.addEventListener('mouseover', function(){
-		volumeSlider.style.display = 'block';
-	}, false);
-	volumeBox.addEventListener('mouseout', function(){
-		volumeSlider.style.display = 'none';
 	}, false);
 	muteBtn.addEventListener('click', function(){
 		trigger( {Control: "muteBtn", volumeSliderValue: volumeSlider.value});
@@ -167,8 +162,9 @@ window.onload = function(){
 		var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
 		fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
 		positionVideo();
-
 	}, 1000);
+	// This (ControlBar) can be positioned independently, as the only variable it requires is window.width
+	positionControlBar();
 
 	sendControls();
 };
@@ -182,6 +178,7 @@ function windowResized(){ // make changes that ought to be made on window resizi
 	// ... to be precise fitVideo does run before but mainVideo.offsetWidth/Height do not show the values that were set to them by mainVideo.style.width/height until later some time
 	fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
 	positionVideo();
+	positionControlBar();
 
 
 	// rightDiv
@@ -203,11 +200,21 @@ function positionVideo(){
 	if( mainVideo.offsetWidth < window.innerWidth){
 		
 		mainVideo.style.left = ( window.innerWidth - mainVideo.offsetWidth)/2 + "px";
-		controlBar.style.left = ( window.innerWidth - mainVideo.offsetWidth)/2 + "px";
 	}
 	else{
 
 		mainVideo.style.left = "0px";
+	}
+}
+
+function positionControlBar(){
+
+	if(window.innerWidth > 640){
+
+		controlBar.style.left = ( (window.innerWidth)/2 - 320) + "px";
+	}
+	else{
+
 		controlBar.style.left = "0px";
 	}
 }
@@ -224,8 +231,6 @@ function fitVideo(ww, hh, aspectRatio){ // We have to fit the video in a box of 
 		// mainVideo.style.width = ww + "px"; // width is the deciding factor
 		mainVideo.style.fontSize = ((ww / aspectRatio) * 28 / 800) + "pt"; // to adjust subtitle size
 	}
-
-	controlBar.style.width = mainVideo.offsetWidth + "px";
 
 	// BUG$$: Do something to reposition the cues immediately on video size change, they stay on their old position until the next cue
 	// ...but the below works pretty well too
@@ -357,6 +362,9 @@ function fillMovs(movtracks){
 	window.sourcePath = trailerPath + movtracks[0]; // will be needed later in curTrailerIndex
 	source.src = sourcePath;
 	mainVideo.appendChild(source);
+	if(movtracks[0]){
+		trailerNameText.innerHTML = movtracks[0].substring( 0, movtracks[0].length - 4);
+	}
 }
 
 function fillSubs(subtracks){

@@ -1,7 +1,13 @@
-#playPauseBtn{
-	position: relative;
-	height: 20px; /*change in script too*/
-	width: 20px;
+body{
+	margin:0;
+}
+
+#frame{
+	position:relative;
+	top: 0;
+	/*display: inline-block;  keeps the controlBar vertically in-line with the mainVideo */
+	overflow-y: hidden;
+	overflow-x: scroll;
 }
 
 #mainVideo::cue{
@@ -25,6 +31,19 @@
 #controlBar{
 	position: relative;
 	top: 0px;
+
+	height: 110px;
+	width: 640px;
+
+	color: #A5A5A5;
+	font: 13.5pt cochin;
+	font-weight: 200;
+
+	overflow-x: scroll;
+	overflow-y: hidden;
+
+	background-color: #292929;
+	border-radius: 10px;
 }
 
 .sprites{
@@ -36,6 +55,100 @@
 	width: 20px;
 }
 
+#controlBar > * {
+	position: relative;
+	padding:0px;
+	margin:0px;
+}
+
+#currentTime{
+	height: 22px;
+	width: 85px;
+	top: 10px;
+	left: 15px;
+	text-align: left;
+}
+
+#trailerNameText{
+	height: 22px;
+	width: 440px;
+	top: -12px;
+	left: 100px;
+	text-align: center;
+	overflow: hidden;
+}
+
+#durationTime{
+	height: 22px;
+	width: 85px;
+	top: -34px;
+	left: 540px;
+	text-align: right;
+}
+
+#seekBox{
+	height: 22px;
+	width: 610px;
+	top: -24px;
+	left: 15px;
+}
+
+#volumeBox{
+	height: 22px;
+	width: 200px;
+	top: -14px;
+	left: 15px;
+	/*overflow: hidden;*/ /*temporary*/
+}
+
+#muteBtn{
+	height: 20px;
+	width: 20px;
+	top: 0px;
+	left: 0px;
+}
+
+#volumeSlider{
+	height: 20px;
+	top: -40px;
+	left: 100px;
+}
+
+#previous{
+	height: 20px;
+	width: 20px;
+	top: -36px;
+	left: 270px;
+}
+
+#playPauseBtn{
+	height: 20px;
+	width: 20px;
+	top: -56px;
+	left: 310px;
+}
+
+#next{
+	height: 20px;
+	width: 20px;
+	top: -76px;
+	left: 350px;
+}
+
+#cc{
+	height: 20px;
+	width: 20px;
+	top: -96px;
+	left: 565px;
+}
+
+#fullScreenBtn{
+	height: 20px;
+	width: 20px;
+	top: -116px;
+	left: 605px;
+}
+
 #rightDiv{
 	position: relative;
 	height: 220px; /* keeping it fixed */
@@ -45,40 +158,6 @@
 #thumbList{
 	position:relative;
 	height: 200px;
-}
-
-#frame{
-	position:relative;
-	top: 0;
-	/*display: inline-block;  keeps the controlBar vertically in-line with the mainVideo */
-	overflow-y: hidden;
-	overflow-x: scroll;
-
-	color: #202020;
-	font: 13.5pt cochin;
-	font-weight: 200;
-}
-/*
-html{
-	display:table; 
-	width:100%;
-}
-
-body{
-	display:table-cell; 
-	text-align:center; 
-	vertical-align:middle;
-}*/
-
-body{
-	margin:0;
-}
-
-#inet{
-	text-align: center;
-	color: #202020;
-	font: 15pt copperplate;
-	font-weight: 300;
 }
 
 .thumbnail{
@@ -101,3 +180,9 @@ body{
 	font-weight: 600;
 }
 
+#inet{
+	text-align: center;
+	color: #202020;
+	font: 15pt copperplate;
+	font-weight: 300;
+}

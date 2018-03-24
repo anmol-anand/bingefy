@@ -26,20 +26,26 @@
 	  
 	  	<div id = 'controlBar'>
 
-			<div id = 'playPauseBtn' class = 'spriteContainer'>
-				<img src = "../sprites/pause.png" id = 'playPauseSprite' class = 'sprites'>
-			</div>
-	    	<input id = 'seekSlider' type = 'range' min = '0' max = '1000000' value = '0' step = '1'>
-			<span id = 'currentTime'></span> / 
-			<span id = 'durationTime'></span>
-			<div id = 'volumeBox'>
+			<div id = 'currentTime'></div>
+	    	<div id = 'trailerNameText'></div>
+			<div id = 'durationTime'></div>
+			<div id = 'seekBox'>
+	    		<input id = 'seekSlider' type = 'range' min = '0' max = '1000000' value = '0' step = '1'>
+	    	</div>
+	    	<div id = 'volumeBox'>
 				<div id = 'muteBtn' class = 'spriteContainer'>
 					<img src = "../sprites/vol.png" id = 'muteSprite' class = 'sprites'>
 				</div>
-				<input id = 'volumeSlider' type = 'range' min = '0' max = '20' value = '20' step = '1' style="display: none;">
+				<input id = 'volumeSlider' type = 'range' min = '0' max = '20' value = '20' step = '1'>
 	    	</div>
-	    	<div id = 'fullScreenBtn' class = 'spriteContainer'>
-	    		<img src = '../sprites/enter_full_screen.png' id = 'fullScreenSprite' class = 'sprites'>
+	    	<div id = 'previous' class = 'spriteContainer'>
+	    		<img src = '../sprites/previous.png' id = 'previousSprite' class = 'sprites'>
+	    	</div>
+			<div id = 'playPauseBtn' class = 'spriteContainer'>
+				<img src = "../sprites/pause.png" id = 'playPauseSprite' class = 'sprites'>
+			</div>
+	    	<div id = 'next' class = 'spriteContainer'>
+	    		<img src = '../sprites/next.png' id = 'nextSprite' class = 'sprites'>
 	    	</div>
 	    	<div id = 'cc'>
 		    	<div id = 'ccBtn' class = 'spriteContainer'>
@@ -49,11 +55,8 @@
 	    			<button class = 'ccItem' name = 'none'>none</button>
 	    		</div>
 	    	</div>
-	    	<div id = 'next' class = 'spriteContainer'>
-	    		<img src = '../sprites/next.png' id = 'nextSprite' class = 'sprites'>
-	    	</div>
-	    	<div id = 'previous' class = 'spriteContainer'>
-	    		<img src = '../sprites/previous.png' id = 'previousSprite' class = 'sprites'>
+	    	<div id = 'fullScreenBtn' class = 'spriteContainer'>
+	    		<img src = '../sprites/enter_full_screen.png' id = 'fullScreenSprite' class = 'sprites'>
 	    	</div>
 	    	
 		</div>
