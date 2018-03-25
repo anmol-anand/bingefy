@@ -381,7 +381,7 @@ function fillSubs(subtracks){
 		mainVideo.appendChild(track);
 
 		// appending ccItem to dropdown ccDiv
-		var ccItem = document.createElement('button');
+		var ccItem = document.createElement('div');
 		ccItem.className = 'ccItem';
 		ccItem.name = name;
 		ccItem.innerHTML = name; // you might change this during styling, so we will use name to store name for the backend
@@ -403,7 +403,7 @@ function fillSubs(subtracks){
 
 			trigger( {Control: 'cc', name: this.name});
 		}, false);
-	}
+	}		
 
 }
 
