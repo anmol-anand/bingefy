@@ -235,7 +235,7 @@ function fitVideo(ww, hh, aspectRatio){ // We have to fit the video in a box of 
 	// BUG$$: Do something to reposition the cues immediately on video size change, they stay on their old position until the next cue
 	// ...but the below works pretty well too
 	for(var i = 0; i<mainVideo.textTracks.length; i++){
-		if(mainVideo.textTracks[i].mode = 'showing'){
+		if(mainVideo.textTracks[i].mode=='showing'){
 			mainVideo.textTracks[i].mode = 'hidden';
 			previousTextTrack = i;
 			setTimeout(function(){
@@ -369,6 +369,12 @@ function fillMovs(movtracks){
 
 function fillSubs(subtracks){
 
+	var ccItem = document.createElement('div');
+	ccItem.className = 'ccItem';
+	ccItem.name = 'none';
+	ccItem.innerHTML = "none"; // you might change this during styling, so we will use name to store name for the backend
+	ccDiv.appendChild(ccItem);
+
 	for(var i = 0; i<subtracks.length; i++){
 		
 		var name = subtracks[i];
@@ -391,8 +397,7 @@ function fillSubs(subtracks){
 	for(var i = 0; i<mainVideo.textTracks.length; i++){
 		mainVideo.textTracks[i].mode = 'hidden';
 	}
-
-	// BUG$$: On reload all textTracks were hidden ac to me, but this is not the case a textTrack is showing in the beginning
+	topLeftDisplay('none');
 
 	window.ccItems = document.getElementsByClassName('ccItem');
 
@@ -403,7 +408,7 @@ function fillSubs(subtracks){
 
 			trigger( {Control: 'cc', name: this.name});
 		}, false);
-	}		
+	}
 
 }
 
@@ -536,12 +541,15 @@ function toggle(data){
 	}
 }
 
-function topLeftDisplay(str){
+function topLeftDisplay(str){ // Also highlighting the corresponding ccItem here
 	ccItems = document.getElementsByClassName('ccItem');
 	for(var i = 0; i<ccItems.length; i++){
 		if(ccItems[i].name==str){
 			console.log("Subtitles: " + ccItems[i].innerHTML);
-			return;
+			ccItems[i].style.backgroundColor = '#292929';
+		}
+		else{
+			ccItems[i].style.backgroundColor = '#141414';
 		}
 	}
 }

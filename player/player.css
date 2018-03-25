@@ -150,9 +150,8 @@ body{
 
 	width: 175px;
 
-	background-color: #292929;
 	border-radius: 10px;
-	opacity: 0.93;
+	opacity: 0.9;
 	overflow: hidden;
 }
 
@@ -160,9 +159,10 @@ body{
 	width: 175px;
 	height: 20px;
 
-	border-top: 1px solid #141414;
-	border-bottom: 1px solid #141414;
+	border-top: 1px solid #292929;
+	border-bottom: 1px solid #292929;
 
+	background-color: #141414;
 	padding: 5px;
 	overflow: hidden;
 }
