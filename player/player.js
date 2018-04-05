@@ -28,6 +28,9 @@ window.onload = function(){
 	document.body.appendChild(seekSheet);
 	updateSeekStyle(0);
 
+	window.volumeSheet = document.createElement('style');
+	document.body.appendChild(volumeSheet);
+
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.playPauseSprite = document.getElementById('playPauseSprite');
 
@@ -37,6 +40,7 @@ window.onload = function(){
 	//sliders are not reinitialized on onload, so sync the video ac to them
 	//in case of the seek slider the sliders are synced ac to the video, every moment
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;
+	updateVolumeStyle(100*volumeSlider.value/volumeSlider.max);
 
 	//wehn video is loaded volume slider is not reinitialized but muteBtn is so sync it
 	if(volumeSlider.value==0){
@@ -595,6 +599,13 @@ function autoSeekUpdate(curT, durT){
 	durationTime.innerHTML = ((durhrs > 0)?(durhrs + ":" + extdurmins):durmins) + ":" + dursecs;
 }
 
+function updateVolumeStyle(percentValue){
+
+	var styleExpression = "";
+	styleExpression += "\n#volumeSlider::-moz-range-track{\n\tbackground: linear-gradient(90deg, #747474 " + percentValue + "%, #474747 " + percentValue + "%);\n}";
+	volumeSheet.textContent = styleExpression;
+}
+
 function toggleVolume(data){
 	
 	volumeSlider.value = data.volumeSliderValue;
@@ -619,6 +630,7 @@ function toggleVolume(data){
 	}
 
 	mainVideo.volume = volumeSlider.value/volumeSlider.max;
+	updateVolumeStyle( 100*volumeSlider.value/volumeSlider.max);
 }
 
 function fullScreenFirstfunction(){
