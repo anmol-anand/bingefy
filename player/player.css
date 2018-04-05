@@ -35,7 +35,7 @@ body{
 	height: 110px;
 	width: 640px;
 
-	color: #A5A5A5;
+	color: #a5a5a5;
 	font: 13.5pt cochin;
 	font-weight: 200;
 
@@ -85,6 +85,34 @@ body{
 	width: 610px;
 	top: -24px;
 	left: 15px;
+}
+
+#seekSlider{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 610px;
+	height: 22px;
+	padding: 0px;
+	outline: 0px;
+	margin: 0px;
+}
+
+#seekSlider::-moz-range-track{
+	/*background: linear-gradient(90deg, #747474 0%, #474747 0%);*/
+	height: 3px;
+}
+
+#seekSlider::-moz-range-thumb{
+	background-color: #a5a5a5;
+	width: 4px;
+	height: 18px;
+	border-radius: 1px;
+	border: black 1px;
+}
+
+#seekSlider::-moz-focus-outer{
+	border: 0;
 }
 
 #volumeBox{

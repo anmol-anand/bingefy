@@ -24,6 +24,10 @@ window.onload = function(){
 	window.previous = document.getElementById('previous');
 	window.previousTextTrack = 0; // Being used already
 
+	window.seekSheet = document.createElement('style');
+	document.body.appendChild(seekSheet);
+	updateSeekStyle(0);
+
 	window.playPauseBtn = document.getElementById('playPauseBtn');
 	window.playPauseSprite = document.getElementById('playPauseSprite');
 
@@ -453,6 +457,7 @@ function toggle(data){
 		case "seekSlider" :
 			mainVideo.currentTime = mainVideo.duration*(data.seekSliderValue/seekSlider.max);
 			seekSlider.value = data.seekSliderValue;
+			updateSeekStyle(100*seekSlider.value/seekSlider.max);
 			break;
 		case "updateSlider" :
 			autoSeekUpdate(data.curT, data.durT);
@@ -554,9 +559,17 @@ function topLeftDisplay(str){ // Also highlighting the corresponding ccItem here
 	}
 }
 
+function updateSeekStyle(percentValue){
+
+	var styleExpression = "";
+	styleExpression += "\n#seekSlider::-moz-range-track{\n\tbackground: linear-gradient(90deg, #747474 " + percentValue + "%, #474747 " + percentValue + "%);\n}";
+	seekSheet.textContent = styleExpression;
+}
+
 function autoSeekUpdate(curT, durT){
 
 	seekSlider.value = seekSlider.max*curT/durT;
+	updateSeekStyle( 100*curT/durT);
 	var curhrs = Math.floor(curT/3600);
 	var curmins = Math.floor((curT%3600)/60);
 	var cursecs = Math.floor(curT%60);
