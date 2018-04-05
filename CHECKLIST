@@ -9,7 +9,7 @@ CHECKLIST
 		- style scroll bars
 		- style topLeftDisplay function
 		- ’ --> this character in .srt is replaced by a question mark in .vtt files
-		- there is some problem in naming of files also the thumbnails are not generated properly due to that
+		- buildDirTree not filling info.json in chronological order
 
 	problems in chrome:
 		- sprites update very late in player

@@ -27,6 +27,7 @@ window.onload = function(){
 	window.seekSheet = document.createElement('style');
 	document.body.appendChild(seekSheet);
 	updateSeekStyle(0);
+	seekSlider.value = 0;
 
 	window.volumeSheet = document.createElement('style');
 	document.body.appendChild(volumeSheet);

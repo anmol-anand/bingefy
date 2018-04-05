@@ -4,7 +4,7 @@ body{
 
 #frame{
 	position:relative;
-	top: 0;
+	top: 30px;
 	/*display: inline-block;  keeps the controlBar vertically in-line with the mainVideo */
 	overflow-y: hidden;
 	overflow-x: scroll;
@@ -30,7 +30,7 @@ body{
 
 #controlBar{
 	position: relative;
-	top: 0px;
+	top: -125px;
 
 	height: 110px;
 	width: 640px;
@@ -41,6 +41,7 @@ body{
 
 	background-color: #292929;
 	border-radius: 10px;
+	opacity: 0.80;
 }
 
 .sprites{
@@ -226,6 +227,7 @@ body{
 
 #rightDiv{
 	position: relative;
+	top: -58px;
 	height: 220px; /* keeping it fixed */
 	overflow-y: hidden;
 }
@@ -253,10 +255,14 @@ body{
 	color: #202020;
 	font: 13.5pt cochin;
 	font-weight: 600;
+	overflow-y: hidden;
+	overflow-x: scroll;
 }
 
 #inet{
+	position: relative;
 	text-align: center;
+	top: -64px;
 	color: #202020;
 	font: 15pt copperplate;
 	font-weight: 300;

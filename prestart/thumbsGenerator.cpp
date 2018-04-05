@@ -3,6 +3,21 @@
 
 using namespace std;
 
+string embedBackSlashes(string name){
+
+	string ret = "";
+	for(int i = 0; i<name.size(); i++){
+
+		if( name[i]=='.' || name[i]=='/'){
+			ret = ret + name[i];
+		}
+		else{
+			ret = ret + "\\" + name[i];
+		}
+	}
+	return ret;
+}
+
 int main(int argc, char const *argv[])
 {
 	freopen("./trailers/info.json", "r", stdin);
@@ -31,7 +46,7 @@ int main(int argc, char const *argv[])
 		}
 		thumbPath = thumbPath + ".jpg";
 
-		command = "ffmpeg -ss 00:00:13 -i " + videoPath + " -vf scale=-1:" + size + " -vframes 1 " + thumbPath;
+		command = "ffmpeg -ss 00:00:13 -i " + embedBackSlashes(videoPath) + " -vf scale=-1:" + size + " -vframes 1 " + embedBackSlashes(thumbPath);
 		system( &command[0]);
 	}while(line[0]!='}');
 }
