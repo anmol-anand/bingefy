@@ -270,7 +270,7 @@ body{
 #rightDiv{
 	position: relative;
 	top: -58px;
-	height: 220px; /* keeping it fixed */
+	height: 230px; /* keeping it fixed */
 	overflow-y: hidden;
 }
 

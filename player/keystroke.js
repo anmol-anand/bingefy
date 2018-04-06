@@ -10,18 +10,22 @@ function keystroke(event){
 			trigger( {Control: "fullScreenFirst"});
 			break;
 		case 38:
+			event.preventDefault(); // preventing scroll
 			trigger( {Control: "volumeSlider", volumeSliderValue: Number(volumeSlider.value) + 1});
 		 	break;
 		case 40:
+			event.preventDefault(); // preventing scroll
 			trigger( {Control: "volumeSlider", volumeSliderValue: Number(volumeSlider.value) - 1});
 			break;
 		case 77:
 			trigger( {Control: "muteBtn", volumeSliderValue: volumeSlider.value});
 			break;
 		case 39:
+			event.preventDefault(); // preventing scroll
 			trigger( {Control: "tenSecFwd"});
 			break;
 		case 37:
+			event.preventDefault(); // preventing scroll
 			trigger( {Control: "tenSecBwd"});
 			break;
 		case 67:
