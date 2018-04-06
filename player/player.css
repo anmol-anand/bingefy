@@ -269,7 +269,7 @@ body{
 
 #rightDiv{
 	position: relative;
-	top: -58px;
+	top: 58px;
 	height: 230px; /* keeping it fixed */
 	overflow-y: hidden;
 }
@@ -306,7 +306,7 @@ body{
 #inet{
 	position: relative;
 	text-align: center;
-	top: -44px;
+	top: 68px;
 	color: #202020;
 	font: 15pt copperplate;
 	font-weight: 300;

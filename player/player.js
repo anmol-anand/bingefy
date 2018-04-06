@@ -240,6 +240,7 @@ function fitVideo(ww, hh, aspectRatio){ // We have to fit the video in a box of 
 		// mainVideo.style.width = ww + "px"; // width is the deciding factor
 		mainVideo.style.fontSize = ((ww / aspectRatio) * 28 / 800) + "pt"; // to adjust subtitle size
 	}
+	frame.style.height = mainVideo.style.height;
 
 	// BUG$$: Do something to reposition the cues immediately on video size change, they stay on their old position until the next cue
 	// ...but the below works pretty well too
