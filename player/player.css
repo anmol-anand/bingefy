@@ -157,6 +157,8 @@ body{
 	padding: 0px;
 	outline: 0px;
 	margin: 0px;
+	-webkit-appearance: none;
+	background: transparent;
 }
 
 #volumeSlider::-moz-range-track{
@@ -164,10 +166,25 @@ body{
 	height: 3px;
 }
 
+#volumeSlider::-webkit-slider-runnable-track{
+	background: linear-gradient(90deg, #747474 0%, #474747 0%);
+	height: 3px;
+}
+
 #volumeSlider::-moz-range-thumb{
 	background-color: #a5a5a5;
 	width: 4px;
 	height: 12px;
+	border-radius: 1px;
+	border: black 1px;
+}
+
+#volumeSlider::-webkit-slider-thumb{
+	-webkit-appearance: none;
+	margin-top: -4px;
+	background-color: #a5a5a5;
+	width: 4px;
+	height: 11px;
 	border-radius: 1px;
 	border: black 1px;
 }

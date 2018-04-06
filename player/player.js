@@ -605,6 +605,7 @@ function updateVolumeStyle(percentValue){
 
 	var styleExpression = "";
 	styleExpression += "\n#volumeSlider::-moz-range-track{\n\tbackground: linear-gradient(90deg, #747474 " + percentValue + "%, #474747 " + percentValue + "%);\n}";
+	styleExpression += "\n#volumeSlider::-webkit-slider-runnable-track{\n\tbackground: linear-gradient(90deg, #747474 " + percentValue + "%, #474747 " + percentValue + "%);\n}";
 	volumeSheet.textContent = styleExpression;
 }
 
