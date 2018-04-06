@@ -327,7 +327,7 @@ function fillRightDiv(){
 	for(i = 0; i<thumbTexts.length; i++){
 
 		thumbTexts[i].style.width = thumbImgs[i].naturalWidth + "px";
-		thumbTexts[i].style.height = "20px";
+		// thumbTexts[i].style.height = "20px";
 		thumbnails[i].style.width = thumbImgs[i].naturalWidth + "px";
 
 		if(i==0){

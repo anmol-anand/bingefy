@@ -1,6 +1,7 @@
 #include <dirent.h>
 #include <string.h>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -43,13 +44,21 @@ void exploit( string folder, string name){
 	DIR* dir;
 	struct dirent* ent;
 
+	vector<string> toChronolog;
+
 	if( ( dir = opendir( &path[0]))!=NULL){
 
+		toChronolog.clear();
 		while((ent = readdir (dir)) != NULL){
 			if( cmp( ent->d_name, ".") || cmp( ent->d_name, "..")){
 				continue;
 			}
-			exploit( path, ent->d_name);
+			// exploit( path, ent->d_name);
+			toChronolog.push_back(ent->d_name);
+		}
+		sort(toChronolog.begin(), toChronolog.end());
+		for(int i = 0; i<toChronolog.size(); i++){
+			exploit(path, toChronolog[i]);
 		}
 		closedir(dir);
 	}

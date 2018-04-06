@@ -215,7 +215,8 @@ body{
 
 	background-color: #141414;
 	padding: 5px;
-	overflow: hidden;
+	overflow-y: hidden;
+	overflow-x: scroll;
 }
 
 #fullScreenBtn{
@@ -251,18 +252,19 @@ body{
 .thumbText{
 	position: relative;
 	top: 0;
+	height: 42px;
 	text-align: center;
 	color: #202020;
 	font: 13.5pt cochin;
 	font-weight: 600;
+	word-wrap:break-word;
 	overflow-y: hidden;
-	overflow-x: scroll;
 }
 
 #inet{
 	position: relative;
 	text-align: center;
-	top: -64px;
+	top: -44px;
 	color: #202020;
 	font: 15pt copperplate;
 	font-weight: 300;

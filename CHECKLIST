@@ -9,7 +9,7 @@ CHECKLIST
 		- style scroll bars
 		- style topLeftDisplay function
 		- ’ --> this character in .srt is replaced by a question mark in .vtt files
-		- buildDirTree not filling info.json in chronological order
+		- GOT7 episodes not rendering sound
 
 	problems in chrome:
 		- sprites update very late in player
