@@ -10,7 +10,7 @@ CHECKLIST
 		- style topLeftDisplay function
 		- ’ --> this character in .srt is replaced by a question mark in .vtt files
 		- GOT7 episodes not rendering sound
+		- on first load after starting server thumbnails are sometimes cluttered together
 
 	problems in chrome:
-		- sprites update very late in player
 		- full screen not working

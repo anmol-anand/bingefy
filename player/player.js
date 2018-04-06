@@ -166,12 +166,12 @@ window.onload = function(){
 	// }, false);
 
 	setTimeout(function(){
-
+		mainVideo.style.display = 'block';
 		frame.style.width = Math.min(mainVideo.offsetWidth, window.innerWidth);
 		var aspectRatio = mainVideo.videoWidth / mainVideo.videoHeight;
 		fitVideo( Math.max( window.innerWidth, minVideoWidth), Math.max( b*window.innerHeight, minVideoWidth/aspectRatio), aspectRatio);
 		positionVideo();
-	}, 1000);
+	}, 2000);
 	// This (ControlBar) can be positioned independently, as the only variable it requires is window.width
 	positionControlBar();
 

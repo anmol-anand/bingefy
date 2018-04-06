@@ -1,5 +1,6 @@
 body{
 	margin:0;
+	background: linear-gradient(black, grey);
 }
 
 #frame{
@@ -22,6 +23,7 @@ body{
 }
 
 #mainVideo{
+	display: none;
 	position: relative;
 	top: 0;
 	/*height: 800px;  Will be used in changing font-size fo subtitles*/
@@ -41,7 +43,7 @@ body{
 
 	background-color: #292929;
 	border-radius: 10px;
-	opacity: 0.80;
+	opacity: 0.85;
 }
 
 .sprites{
