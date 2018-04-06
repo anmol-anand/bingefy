@@ -13,4 +13,5 @@ CHECKLIST
 		- on first load after starting server thumbnails are sometimes cluttered together
 
 	problems in chrome:
+		= desktop chrome still takes time to replace sprites
 		- full screen not working

@@ -568,6 +568,7 @@ function updateSeekStyle(percentValue){
 
 	var styleExpression = "";
 	styleExpression += "\n#seekSlider::-moz-range-track{\n\tbackground: linear-gradient(90deg, #747474 " + percentValue + "%, #474747 " + percentValue + "%);\n}";
+	styleExpression += "\n#seekSlider::-webkit-slider-runnable-track{\n\tbackground: linear-gradient(90deg, #747474 " + percentValue + "%, #474747 " + percentValue + "%);\n}";
 	seekSheet.textContent = styleExpression;
 }
 
