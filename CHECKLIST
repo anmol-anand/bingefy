@@ -11,7 +11,10 @@ CHECKLIST
 		- style topLeftDisplay function
 		- ’ --> this character in .srt is replaced by a question mark in .vtt files
 		- GOT7 episodes not rendering sound
-		- on first load after starting server thumbnails are sometimes cluttered together
+		- on first load after starting server thumbnails are sometimes cluttered 
+		- fantomize controlBar fullscreen/and otherwise
+		- mouse pointer
+together
 
 	problems in chrome:
 		= desktop chrome still takes time to replace sprites
